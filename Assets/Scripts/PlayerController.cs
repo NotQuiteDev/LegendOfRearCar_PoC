@@ -1,22 +1,16 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController_Rigidbody : MonoBehaviour // (클래스 이름 변경)
+public class PlayerController_Rigidbody : MonoBehaviour 
 {
     [Header("Movement Settings")]
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float sprintSpeed = 8f;
-    [SerializeField] private float rotationSpeed = 10f; // 플레이어 회전 속도
-
-    // [CHANGE] jumpForce는 이제 '점프 높이'가 아니라 '순간적인 힘(Impulse)'의 크기입니다.
-    // 인스펙터에서 5~10 정도의 값으로 새로 조절해야 합니다.
+    [SerializeField] private float rotationSpeed = 10f; 
     [SerializeField] private float jumpForce = 5f; 
 
-    // [CHANGE] Rigidbody가 중력을 자동으로 처리하므로 gravity 변수는 필요 없습니다.
-    // [SerializeField] private float gravity = -9.81f; 
-
     [Header("Camera")]
-    [SerializeField] private Transform cameraTransform; // Main Camera
+    [SerializeField] private Transform cameraTransform; 
 
     [Header("Ground Check")]
     [SerializeField] private Transform groundCheck;
@@ -24,18 +18,18 @@ public class PlayerController_Rigidbody : MonoBehaviour // (클래스 이름 변
     [SerializeField] private LayerMask groundMask;
 
     // Components
-    private Rigidbody rb; // [CHANGE] CharacterController -> Rigidbody
+    private Rigidbody rb; 
     private InputSystem_Actions inputActions;
 
     // Movement
-    private Vector3 moveDirection; // [NEW] FixedUpdate에서 사용할 이동 방향
-    private float currentSpeed;    // [NEW] FixedUpdate에서 사용할 현재 속도
+    private Vector3 moveDirection; 
+    private float currentSpeed;    
     private bool isGrounded;
     private Vector2 moveInput;
+    private HandcartController currentCartController = null;
 
     void Awake()
     {
-        // [CHANGE] Rigidbody 컴포넌트를 가져옵니다.
         rb = GetComponent<Rigidbody>();
         if (rb == null)
         {
@@ -43,12 +37,10 @@ public class PlayerController_Rigidbody : MonoBehaviour // (클래스 이름 변
             rb = gameObject.AddComponent<Rigidbody>();
         }
 
-        // [NEW] Rigidbody가 물리적으로 넘어지지 않도록 X, Z축 회전을 고정합니다.
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 
         inputActions = new InputSystem_Actions();
 
-        // Main Camera 자동 찾기
         if (cameraTransform == null)
         {
             cameraTransform = Camera.main.transform;
@@ -67,25 +59,24 @@ public class PlayerController_Rigidbody : MonoBehaviour // (클래스 이름 변
 
     void Start()
     {
-        // 마우스 커서 잠금
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
-    // Update에서는 '입력'과 '상태 확인'을 주로 처리합니다.
     void Update()
     {
         HandleGroundCheck();
         ReadInput();
-        CalculateMovementDirection(); // [NEW] 이동 방향과 속도를 '계산'만 합니다.
+        CalculateMovementDirection(); 
         HandleJump();
         HandleCursorToggle();
+
+        // [NEW] 리어카 입력 처리
+        HandleCartInput();
     }
 
-    // FixedUpdate에서는 '물리' 관련 처리를 합니다.
     void FixedUpdate()
     {
-        // 계산된 값을 바탕으로 '실제 물리적 이동'을 적용합니다.
         HandleMovement();
         HandleRotation();
     }
@@ -103,82 +94,64 @@ public class PlayerController_Rigidbody : MonoBehaviour // (클래스 이름 변
         }
         else
         {
-            // Rigidbody는 isGrounded 속성이 없으므로 groundCheck가 필수입니다.
             Debug.LogWarning("GroundCheck Transform이 설정되지 않았습니다.");
-            isGrounded = false; // 기본값
+            isGrounded = false; 
         }
     }
-
-    // [NEW] 실제 이동을 적용하기 전에 방향과 속도를 미리 계산합니다.
+ 
     void CalculateMovementDirection()
     {
-        // 카메라 방향 기준으로 이동 방향 계산
         Vector3 cameraForward = cameraTransform.forward;
         Vector3 cameraRight = cameraTransform.right;
 
-        // Y축 제거 (수평 이동만)
         cameraForward.y = 0f;
         cameraRight.y = 0f;
         cameraForward.Normalize();
         cameraRight.Normalize();
 
-        // 이동 방향 = 카메라 forward * W/S + 카메라 right * A/D
         moveDirection = (cameraForward * moveInput.y + cameraRight * moveInput.x).normalized;
 
-        // 스프린트
         currentSpeed = inputActions.Player.Sprint.IsPressed() ? sprintSpeed : moveSpeed;
     }
 
-    // [CHANGE] FixedUpdate에서 실행되며, Rigidbody의 속도를 제어합니다.
     void HandleMovement()
     {
-        // 계산된 이동 방향과 속도로 목표 속도를 설정합니다.
         Vector3 targetVelocity = moveDirection * currentSpeed;
 
-        // [IMPORTANT] Y축 속도(중력, 점프)는 Rigidbody의 현재 값을 유지해야 합니다.
-        targetVelocity.y = rb.linearVelocity.y;
+        // [FIXED] Y축 속도(중력, 점프)는 Rigidbody의 현재 값을 유지해야 합니다.
+        // 'linearVelocity'가 아니라 'velocity'가 올바른 속성 이름입니다.
+        targetVelocity.y = rb.linearVelocity.y; 
 
-        // Rigidbody의 속도를 직접 설정하여 즉각적인 반응을 만듭니다.
+        // [FIXED] Rigidbody의 속도를 직접 설정합니다.
         rb.linearVelocity = targetVelocity;
     }
 
-    // [NEW] 회전 로직을 분리하여 FixedUpdate에서 처리합니다.
     void HandleRotation()
     {
         if (moveDirection.magnitude > 0.1f)
         {
             Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
 
-            // Slerp를 사용하여 부드러운 회전 적용
             Quaternion newRotation = Quaternion.Slerp(
-                rb.rotation, // transform.rotation 대신 rb.rotation 사용
+                rb.rotation, 
                 targetRotation,
-                rotationSpeed * Time.fixedDeltaTime // Time.deltaTime 대신 Time.fixedDeltaTime 사용
+                rotationSpeed * Time.fixedDeltaTime 
             );
 
-            // Rigidbody의 회전을 물리적으로 안전하게 변경
             rb.MoveRotation(newRotation);
         }
     }
 
-    // [CHANGE] 점프와 중력 로직이 대폭 변경됩니다.
     void HandleJump()
     {
-        // 점프 (Update에서 입력을 감지)
         if (inputActions.Player.Jump.triggered && isGrounded)
         {
-            // [IMPORTANT] 수동으로 Y 속도를 계산하는 대신,
-            // Rigidbody에 '위쪽'으로 '순간적인 힘(Impulse)'을 가합니다.
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
-
-        // [DELETED] 수동 중력 계산(velocity.y += gravity...)이 모두 삭제되었습니다.
-        // Rigidbody의 'Use Gravity'가 이 역할을 대신합니다.
     }
 
     void HandleCursorToggle()
     {
-        // (이 함수는 기존과 동일합니다)
         if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             if (Cursor.lockState == CursorLockMode.Locked)
@@ -187,7 +160,7 @@ public class PlayerController_Rigidbody : MonoBehaviour // (클래스 이름 변
                 Cursor.visible = true;
             }
         }
-
+        
         if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
         {
             if (Cursor.lockState == CursorLockMode.None)
@@ -195,6 +168,69 @@ public class PlayerController_Rigidbody : MonoBehaviour // (클래스 이름 변
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
             }
+        }
+    }
+
+    // ----- [NEW] 리어카 로직 -----
+
+    /// <summary>
+    /// 플레이어가 리어카 제어 구역(트리거)에 들어갔을 때 호출됩니다.
+    /// </summary>
+    private void OnTriggerEnter(Collider other)
+    {
+        // 들어간 트리거의 태그가 "HandcartControlZone"인지 확인합니다.
+        if (other.CompareTag("HandcartControlZone"))
+        {
+            // 그 트리거의 부모에서 Handcart 스크립트를 찾아서 저장합니다.
+            currentCartController = other.GetComponentInParent<HandcartController>();
+            if (currentCartController != null)
+            {
+                // [NEW] 리어카 컨트롤러에 제어 시작을 알립니다.
+                currentCartController.StartControl();
+            }
+        }
+    }
+
+    /// <summary>
+    /// 플레이어가 리어카 제어 구역(트리거)에서 나갔을 때 호출됩니다.
+    /// </summary>
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("HandcartControlZone"))
+        {
+            HandcartController exitedCart = other.GetComponentInParent<HandcartController>();
+            if (currentCartController == exitedCart && currentCartController != null)
+            {
+                // [NEW] 리어카 컨트롤러에 제어 종료를 알립니다.
+                currentCartController.StopControl();
+                currentCartController = null;
+            }
+        }
+    }
+
+    /// <summary>
+    /// 리어카 제어 '입력'을 '명령'으로 변환하여 컨트롤러에 전달합니다.
+    /// </summary>
+    private void HandleCartInput() // (이전 HandleCartControl)
+    {
+        // 제어할 리어카가 없으면(= 영역 밖에 있으면) 아무것도 하지 않습니다.
+        if (currentCartController == null)
+        {
+            return; 
+        }
+
+        // RearCarUp 입력 감지
+        if (inputActions.Player.RearCarUp.IsPressed())
+        {
+            // [CHANGE] 목표 Y값을 직접 올리라고 '명령'합니다.
+            currentCartController.MoveTargetY(1f); 
+        }
+        
+        // RearCarDown 입력 감지
+        if (inputActions.Player.RearCarDown.IsPressed())
+        {
+            // [CHANGE] 목표 Y값을 직접 내리라고 '명령'합니다.
+            currentCartController.MoveTargetY(-1f);
         }
     }
 }
