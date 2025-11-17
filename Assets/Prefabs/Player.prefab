@@ -45,6 +45,8 @@ GameObject:
   - component: {fileID: 6574879157142817193}
   - component: {fileID: 1647275324246343666}
   - component: {fileID: 3037385574133494202}
+  - component: {fileID: 3956874380473311237}
+  - component: {fileID: 6286730684972520704}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -147,6 +149,14 @@ MonoBehaviour:
     m_Bits: 392
   holdPosition: {fileID: 3590036949663057989}
   throwForce: 10
+  playerEnergy: {fileID: 3956874380473311237}
+  sprintEnergyCost: 1
+  jumpEnergyCost: 1
+  mineEnergyCost: 1
+  miningRange: 2
+  oreLayer:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!54 &1647275324246343666
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -197,6 +207,34 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3956874380473311237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2819747500731926570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60e99870e25339e44a88a5e91cd57e64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxEnergy: 100
+  energySlider: {fileID: 0}
+--- !u!114 &6286730684972520704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2819747500731926570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceaa543499e9d4f42b63f7ad67116eef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moneyTMPText: {fileID: 0}
+  startingMoney: 100
 --- !u!1 &3807503952356071020
 GameObject:
   m_ObjectHideFlags: 0

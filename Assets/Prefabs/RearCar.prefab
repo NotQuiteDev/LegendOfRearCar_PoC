@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 6797638892870106663}
   - component: {fileID: 149003678348061724}
   - component: {fileID: 4041158468432155348}
-  - component: {fileID: 5160021309946464681}
-  m_Layer: 0
+  - component: {fileID: 7686282630884065518}
+  m_Layer: 8
   m_Name: Cylinder (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!146 &5160021309946464681
+--- !u!146 &7686282630884065518
 WheelCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,15 +95,15 @@ WheelCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 24855252819439310}
   serializedVersion: 2
-  m_Center: {x: 0, y: 0, z: 0}
-  m_Radius: 8
+  m_Center: {x: 0, y: -1.08, z: 0}
+  m_Radius: 8.22
   m_SuspensionSpring:
-    spring: 3
-    damper: 3
+    spring: 0
+    damper: 0
     targetPosition: 0.5
-  m_SuspensionDistance: 1
+  m_SuspensionDistance: 0
   m_ForceAppPointDistance: 0
-  m_Mass: 1
+  m_Mass: 20
   m_WheelDampingRate: 0.0001
   m_ForwardFriction:
     m_ExtremumSlip: 0.4
@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: 8326363972719184231}
   - component: {fileID: 3633731195902551432}
   - component: {fileID: 3417782094593523855}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Handle (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -374,7 +374,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 4109
+  m_VersionIndex: 4115
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -488,7 +488,7 @@ GameObject:
   - component: {fileID: 9110442745984423582}
   - component: {fileID: 3277286392787235845}
   - component: {fileID: 5580032848432428569}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -574,8 +574,8 @@ GameObject:
   - component: {fileID: 3874013944741704398}
   - component: {fileID: 4410845176740818758}
   - component: {fileID: 2383644112945519135}
-  - component: {fileID: 102350634072902568}
-  m_Layer: 0
+  - component: {fileID: 2108509862178017616}
+  m_Layer: 8
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -650,7 +650,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!146 &102350634072902568
+--- !u!146 &2108509862178017616
 WheelCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -658,15 +658,15 @@ WheelCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2390121999658949637}
   serializedVersion: 2
-  m_Center: {x: 0, y: 0, z: 0}
-  m_Radius: 8
+  m_Center: {x: 0, y: 1.08, z: 0}
+  m_Radius: 8.22
   m_SuspensionSpring:
-    spring: 3
-    damper: 3
+    spring: 0
+    damper: 0
     targetPosition: 0.5
-  m_SuspensionDistance: 1
+  m_SuspensionDistance: 0
   m_ForceAppPointDistance: 0
-  m_Mass: 1
+  m_Mass: 20
   m_WheelDampingRate: 0.0001
   m_ForwardFriction:
     m_ExtremumSlip: 0.4
@@ -703,7 +703,7 @@ GameObject:
   - component: {fileID: 4338967800703914051}
   - component: {fileID: 262892067115104909}
   - component: {fileID: 3926011005489455665}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -937,7 +937,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3257
+  m_VersionIndex: 3263
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1054,7 +1054,7 @@ GameObject:
   - component: {fileID: 238015321906773104}
   - component: {fileID: 7846994777731883649}
   - component: {fileID: 3954865216769086373}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Handle (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1288,7 +1288,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 4219
+  m_VersionIndex: 4225
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1401,7 +1401,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5077765988901875676}
   - component: {fileID: 4727322100442052882}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ControlZone
   m_TagString: HandcartControlZone
   m_Icon: {fileID: 0}
@@ -1458,7 +1458,7 @@ GameObject:
   - component: {fileID: 4208624335519861607}
   - component: {fileID: 4220330428544949222}
   - component: {fileID: 7417417186482649320}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1692,7 +1692,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 4207
+  m_VersionIndex: 4213
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1804,7 +1804,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 789114494417419461}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: HandleForcePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1840,7 +1840,7 @@ GameObject:
   - component: {fileID: 136786964263241973}
   - component: {fileID: 2414331990787155566}
   - component: {fileID: 5100715436487794342}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2074,7 +2074,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 4021
+  m_VersionIndex: 4027
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -2191,7 +2191,7 @@ GameObject:
   - component: {fileID: 1455540782327929646}
   - component: {fileID: 590291875317295266}
   - component: {fileID: 5394451261987982281}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2425,7 +2425,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 4091
+  m_VersionIndex: 4097
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -2539,7 +2539,7 @@ GameObject:
   - component: {fileID: 8969884082538340452}
   - component: {fileID: 9054156448915007517}
   - component: {fileID: 1857799526058613326}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RearCar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2598,9 +2598,9 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &1857799526058613326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2634,7 +2634,7 @@ GameObject:
   - component: {fileID: 9163441668142062459}
   - component: {fileID: 7178930254247743630}
   - component: {fileID: 8078457045646453146}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2868,7 +2868,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 4797
+  m_VersionIndex: 4803
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -2985,7 +2985,7 @@ GameObject:
   - component: {fileID: 2201056786118238212}
   - component: {fileID: 5457963751961521720}
   - component: {fileID: 3106632784295142697}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3219,7 +3219,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 4691
+  m_VersionIndex: 4697
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []

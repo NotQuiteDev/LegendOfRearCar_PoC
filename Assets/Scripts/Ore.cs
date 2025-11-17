@@ -1,13 +1,14 @@
 using UnityEngine;
-using System.Collections.Generic; // List를 사용하기 위해 필요합니다!
+using System.Collections.Generic; // List를 사용하기 위해 필요합니다.
 
-// [NEW] 인스펙터에 노출시키기 위한 드랍 아이템 정보 구조체
+// [MODIFIED] 드랍 아이템 정보 구조체
 [System.Serializable]
 public struct ItemDrop
 {
     public GameObject itemPrefab; // 드랍할 아이템 프리팹
-    [Range(0f, 1f)]
-    public float dropChance; // 이 아이템이 드랍될 확률 (0.0 ~ 1.0)
+
+    [Tooltip("'확률(%)'이 아닌 '가중치'입니다. 상대적인 값입니다.")]
+    public float weight; // 예: 돌 = 80, 보석 = 10
 }
 
 public class Ore : MonoBehaviour
@@ -16,9 +17,13 @@ public class Ore : MonoBehaviour
     [SerializeField] private float maxHealth = 100f;
     private float currentHealth;
 
-    // [MODIFIED] 드랍 아이템 리스트
-    [Header("드랍 아이템")]
-    [SerializeField] private List<ItemDrop> possibleDrops; // 드랍 가능한 아이템 목록
+    [Header("드랍 아이템 (가중치)")]
+    [Tooltip("드랍될 수 있는 아이템과 그 가중치 목록")]
+    [SerializeField] private List<ItemDrop> possibleDrops; 
+
+    [Header("드랍 없음 (가중치)")]
+    [Tooltip("아무것도 드랍되지 않을 가중치 값입니다. (예: 10)")]
+    [SerializeField] private float nothingWeight = 10f; 
 
     private bool isDead = false;
 
@@ -37,8 +42,6 @@ public class Ore : MonoBehaviour
         currentHealth -= amount;
         Debug.Log($"{gameObject.name} 체력: {currentHealth}/{maxHealth}");
 
-        // TODO: 피격 이펙트 (파티클, 사운드) 재생
-
         if (currentHealth <= 0)
         {
             Die();
@@ -47,12 +50,12 @@ public class Ore : MonoBehaviour
 
     private void Die()
     {
+        if (isDead) return; // 중복 실행 방지
         isDead = true;
+
         Debug.Log($"{gameObject.name} 파괴됨!");
 
-        // TODO: 파괴 이펙트 (파티클, 사운드) 재생
-
-        // [MODIFIED] 드랍 로직 변경
+        // 가중치에 따라 아이템 드랍 처리
         HandleDrops();
         
         // 광석 오브젝트 파괴
@@ -60,29 +63,59 @@ public class Ore : MonoBehaviour
     }
 
     /// <summary>
-    /// [NEW] 드랍 리스트를 순회하며 아이템 드랍을 처리합니다.
+    /// [REPLACED] 가중치 기반으로 "하나의" 아이템만 드랍합니다.
     /// </summary>
     private void HandleDrops()
     {
-        if (possibleDrops == null || possibleDrops.Count == 0)
-        {
-            return; // 드랍할 아이템이 설정되지 않았으면 종료
-        }
+        // 1. '드랍 없음' 가중치부터 시작해서 총 가중치를 계산합니다.
+        float totalWeight = nothingWeight;
 
-        // 리스트에 있는 모든 아이템을 '각각' 검사합니다.
+        // 리스트에 있는 모든 아이템의 가중치를 더합니다.
         foreach (ItemDrop drop in possibleDrops)
         {
-            // Random.value는 0.0에서 1.0 사이의 난수를 반환합니다.
-            // 난수가 설정된 확률(dropChance)보다 낮으면 당첨(드랍)입니다.
-            if (Random.value <= drop.dropChance)
+            totalWeight += drop.weight;
+        }
+
+        // 만약 총 가중치가 0이거나 (설정 오류) 
+        // '드랍 없음' 가중치만 있다면 (totalWeight == nothingWeight)
+        // 아무것도 드랍하지 않고 종료합니다.
+        if (totalWeight <= 0 || (totalWeight == nothingWeight && possibleDrops.Count > 0))
+        {
+            Debug.LogWarning("아이템 드랍 가중치가 잘못 설정되었습니다.");
+            return;
+        }
+
+        // 2. 0부터 총 가중치 사이의 랜덤 숫자를 하나 뽑습니다.
+        float randomPick = Random.Range(0f, totalWeight);
+
+        // 3. '드랍 없음' 가중치부터 깎아내립니다.
+        // (뽑힌 숫자가 '드랍 없음' 가중치보다 작으면 '꽝'에 당첨된 것입니다)
+        if (randomPick < nothingWeight)
+        {
+            Debug.Log("아무것도 드랍되지 않았습니다. (꽝)");
+            return;
+        }
+        
+        // '꽝'이 아니라면, '드랍 없음' 가중치를 뺀 값으로 다시 계산합니다.
+        randomPick -= nothingWeight;
+
+        // 4. 아이템 리스트를 순회하며 당첨 아이템을 찾습니다.
+        foreach (ItemDrop drop in possibleDrops)
+        {
+            // 현재 아이템의 가중치 범위 안에 랜덤 숫자가 포함되면
+            if (randomPick < drop.weight)
             {
-                // 아이템 프리팹이 설정되어 있다면
+                // 이 아이템이 당첨!
                 if (drop.itemPrefab != null)
                 {
-                    // 광석의 위치에 아이템 생성
                     Instantiate(drop.itemPrefab, transform.position, Quaternion.identity);
+                    Debug.Log($"[아이템 드랍] {drop.itemPrefab.name} (가중치: {drop.weight})");
                 }
+                return; // ★★★ 중요: 하나만 드랍하고 즉시 함수 종료
             }
+            
+            // 이번 아이템이 아니라면, 가중치를 빼고 다음 아이템 검사
+            randomPick -= drop.weight;
         }
     }
 }
