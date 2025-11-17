@@ -516,6 +516,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &26476035
 GameObject:
   m_ObjectHideFlags: 0
@@ -978,6 +979,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &60684287
 GameObject:
   m_ObjectHideFlags: 0
@@ -2182,6 +2184,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &184333401
 GameObject:
   m_ObjectHideFlags: 0
@@ -2228,6 +2231,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &190881450
 GameObject:
   m_ObjectHideFlags: 0
@@ -2274,6 +2278,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &195089833
 GameObject:
   m_ObjectHideFlags: 0
@@ -2320,6 +2325,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 1163328563824376708, guid: 9300c229193457a48a37ba9285bbbe8c, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 1
 --- !u!1 &200630725
 GameObject:
   m_ObjectHideFlags: 0
@@ -2366,6 +2372,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &214299887
 GameObject:
   m_ObjectHideFlags: 0
@@ -2412,6 +2419,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &233590427
 GameObject:
   m_ObjectHideFlags: 0
@@ -2661,6 +2669,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &255804379
 GameObject:
   m_ObjectHideFlags: 0
@@ -2707,6 +2716,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &259272400
 GameObject:
   m_ObjectHideFlags: 0
@@ -3104,6 +3114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &286197479
 GameObject:
   m_ObjectHideFlags: 0
@@ -3150,6 +3161,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!43 &294670684
 Mesh:
   m_ObjectHideFlags: 0
@@ -3361,6 +3373,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1001 &313445571
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3464,6 +3477,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!43 &326059979
 Mesh:
   m_ObjectHideFlags: 0
@@ -3845,6 +3859,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!43 &375504599
 Mesh:
   m_ObjectHideFlags: 0
@@ -4768,6 +4783,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 8767671823072279696, guid: 5c028cb5269ac9f4ab2b46942cd29684, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &465575406
 GameObject:
   m_ObjectHideFlags: 0
@@ -4814,6 +4830,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &492669106
 GameObject:
   m_ObjectHideFlags: 0
@@ -5924,6 +5941,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &591351878
 GameObject:
   m_ObjectHideFlags: 0
@@ -5970,6 +5988,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!43 &615556941
 Mesh:
   m_ObjectHideFlags: 0
@@ -6954,6 +6973,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!43 &706361442
 Mesh:
   m_ObjectHideFlags: 0
@@ -7330,6 +7350,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &762337581
 GameObject:
   m_ObjectHideFlags: 0
@@ -7449,6 +7470,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &795009589
 GameObject:
   m_ObjectHideFlags: 0
@@ -7495,6 +7517,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &803532976
 GameObject:
   m_ObjectHideFlags: 0
@@ -7541,6 +7564,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &809329568
 GameObject:
   m_ObjectHideFlags: 0
@@ -7587,6 +7611,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &827572868
 GameObject:
   m_ObjectHideFlags: 0
@@ -8460,6 +8485,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &858501552
 GameObject:
   m_ObjectHideFlags: 0
@@ -8506,6 +8532,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &929052023
 GameObject:
   m_ObjectHideFlags: 0
@@ -8552,6 +8579,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &955660163
 GameObject:
   m_ObjectHideFlags: 0
@@ -8598,6 +8626,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!43 &958641827
 Mesh:
   m_ObjectHideFlags: 0
@@ -8974,6 +9003,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &979944273
 GameObject:
   m_ObjectHideFlags: 0
@@ -9020,6 +9050,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &1034596875
 GameObject:
   m_ObjectHideFlags: 0
@@ -9066,6 +9097,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &1037231192
 GameObject:
   m_ObjectHideFlags: 0
@@ -9112,6 +9144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!43 &1050396921
 Mesh:
   m_ObjectHideFlags: 0
@@ -9328,6 +9361,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &1059145979
 GameObject:
   m_ObjectHideFlags: 0
@@ -9374,6 +9408,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!43 &1088846495
 Mesh:
   m_ObjectHideFlags: 0
@@ -9750,6 +9785,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &1139981234
 GameObject:
   m_ObjectHideFlags: 0
@@ -9796,6 +9832,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &1184734450
 GameObject:
   m_ObjectHideFlags: 0
@@ -9842,6 +9879,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &1185545782
 GameObject:
   m_ObjectHideFlags: 0
@@ -10239,6 +10277,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!43 &1248654485
 Mesh:
   m_ObjectHideFlags: 0
@@ -11653,6 +11692,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &1362039498
 GameObject:
   m_ObjectHideFlags: 0
@@ -11835,6 +11875,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 1019787323024631522, guid: dd37bbb420a8bd74c90cf1d9c64b486c, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 1
 --- !u!1 &1377813638
 GameObject:
   m_ObjectHideFlags: 0
@@ -11971,6 +12012,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &1397262697
 GameObject:
   m_ObjectHideFlags: 0
@@ -12017,6 +12059,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &1409155345
 GameObject:
   m_ObjectHideFlags: 0
@@ -12138,6 +12181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!43 &1437650037
 Mesh:
   m_ObjectHideFlags: 0
@@ -12395,6 +12439,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &1463859678
 GameObject:
   m_ObjectHideFlags: 0
@@ -12441,6 +12486,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &1477069137
 GameObject:
   m_ObjectHideFlags: 0
@@ -12487,6 +12533,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &1479272215
 GameObject:
   m_ObjectHideFlags: 0
@@ -12635,6 +12682,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &1482252149
 GameObject:
   m_ObjectHideFlags: 0
@@ -12783,6 +12831,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!43 &1513915062
 Mesh:
   m_ObjectHideFlags: 0
@@ -13226,6 +13275,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &1621899680
 GameObject:
   m_ObjectHideFlags: 0
@@ -13272,6 +13322,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &1634600770
 GameObject:
   m_ObjectHideFlags: 0
@@ -13420,6 +13471,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 5849116304485581565, guid: 104edd1a979ea064d8926cb5debdc22b, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 1
 --- !u!1 &1641859841
 GameObject:
   m_ObjectHideFlags: 0
@@ -13466,6 +13518,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &1652968241
 GameObject:
   m_ObjectHideFlags: 0
@@ -13843,6 +13896,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &1667465901
 GameObject:
   m_ObjectHideFlags: 0
@@ -14011,6 +14065,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &1719037461
 GameObject:
   m_ObjectHideFlags: 0
@@ -14408,6 +14463,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &1734301340
 GameObject:
   m_ObjectHideFlags: 0
@@ -15038,6 +15094,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!43 &1788716483
 Mesh:
   m_ObjectHideFlags: 0
@@ -15249,6 +15306,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &1833386125
 GameObject:
   m_ObjectHideFlags: 0
@@ -15295,6 +15353,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 4557866387836388655, guid: e2827cf5c159f114d852649042c17cd6, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 1
 --- !u!1 &1838622147
 GameObject:
   m_ObjectHideFlags: 0
@@ -15341,6 +15400,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &1846850774
 GameObject:
   m_ObjectHideFlags: 0
@@ -15387,6 +15447,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &1850891153
 GameObject:
   m_ObjectHideFlags: 0
@@ -15666,6 +15727,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &1884017660
 GameObject:
   m_ObjectHideFlags: 0
@@ -15712,6 +15774,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!43 &1900015193
 Mesh:
   m_ObjectHideFlags: 0
@@ -15923,6 +15986,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!43 &1944293677
 Mesh:
   m_ObjectHideFlags: 0
@@ -16495,6 +16559,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &1991359542
 GameObject:
   m_ObjectHideFlags: 0
@@ -16541,6 +16606,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &2000689717
 GameObject:
   m_ObjectHideFlags: 0
@@ -16622,6 +16688,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &2036197244
 GameObject:
   m_ObjectHideFlags: 0
@@ -16668,6 +16735,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &2073477669
 GameObject:
   m_ObjectHideFlags: 0
@@ -17192,6 +17260,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7507357414401732260, guid: 7443b3fddf2c6054eb152bea3cd56c5f, type: 3}
   respawnDelay: 3
+  respawnOnPurchase: 0
 --- !u!1 &2133503463
 GameObject:
   m_ObjectHideFlags: 0

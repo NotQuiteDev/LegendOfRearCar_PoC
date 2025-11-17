@@ -81,7 +81,7 @@ MonoBehaviour:
   miningRange: 2
   oreLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   mineEnergyCost: 1
 --- !u!65 &817804183856272651
 BoxCollider:

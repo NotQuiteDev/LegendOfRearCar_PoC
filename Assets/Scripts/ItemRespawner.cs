@@ -9,14 +9,17 @@ public class ItemRespawner : MonoBehaviour
     [Header("리스폰 딜레이")]
     [SerializeField] private float respawnDelay = 3.0f; // 아이템이 사라진 후 다시 스폰될 때까지 걸리는 시간 (초)
 
+    [Header("구매 시 리스폰")]
+    [Tooltip("체크하면, 아이템이 파괴되지 않아도 '구매'되는 즉시 새 아이템을 리스폰합니다.")]
+    [SerializeField] private bool respawnOnPurchase = false; // [NEW]
+
     // 현재 스폰되어 있는 아이템을 추적합니다.
     private GameObject currentItemInstance;
-    // 현재 리스폰 코루틴이 실행 중인지 확인합니다.
+    private BuyableItem spawnedBuyableItem; // [NEW] 스폰된 아이템의 Buyable 컴포넌트
     private bool isSpawning = false;
 
     void Start()
     {
-        // 게임이 시작되면 즉시 첫 아이템을 스폰합니다.
         if (itemPrefab != null)
         {
             SpawnItem();
@@ -29,11 +32,39 @@ public class ItemRespawner : MonoBehaviour
 
     void Update()
     {
-        // 1. 현재 스폰된 아이템이 (파괴되어서) 사라졌고,
-        // 2. 지금 새로 스폰하는 중이 아니라면
-        if (currentItemInstance == null && !isSpawning)
+        // 이미 리스폰 절차가 진행 중이면, 아무것도 하지 않음
+        if (isSpawning)
         {
-            // 리스폰 절차를 시작합니다.
+            return;
+        }
+
+        bool triggerRespawn = false;
+
+        // 1. 아이템이 '파괴'되었는지 확인 (예: 구매 실패)
+        if (currentItemInstance == null)
+        {
+            triggerRespawn = true;
+        }
+        // 2. 파괴되진 않았지만, '구매 시 리스폰' 옵션이 켜져 있는지 확인
+        else if (respawnOnPurchase)
+        {
+            // 3. 스폰된 아이템이 '구매'되었는지 확인
+            if (spawnedBuyableItem != null && spawnedBuyableItem.isPurchased)
+            {
+                // 구매됨! 이 아이템은 이제 플레이어 소유입니다.
+                // 스포너는 이 아이템을 "잊어버리고" (null 처리) 리스폰을 준비합니다.
+                currentItemInstance = null; 
+                spawnedBuyableItem = null;
+                triggerRespawn = true;
+                Debug.Log("아이템이 구매되어 새 아이템을 리스폰합니다...");
+            }
+            // (참고) spawnedBuyableItem이 null인 경우 = 프리팹에 BuyableItem이 없는 경우
+            // 이 경우, StartCoroutine(RespawnItem) 안에서 자동으로 경고가 뜹니다.
+        }
+
+        // 1번(파괴) 또는 2,3번(구매)에 의해 리스폰이 결정되었다면
+        if (triggerRespawn)
+        {
             StartCoroutine(RespawnItem());
         }
     }
@@ -45,11 +76,15 @@ public class ItemRespawner : MonoBehaviour
     {
         if (itemPrefab == null) return;
 
-        // 이 스크립트(Respawner)의 위치에 프리팹을 생성합니다.
         currentItemInstance = Instantiate(itemPrefab, transform.position, transform.rotation);
         
-        // (선택 사항) 스폰된 아이템을 Respawner의 자식으로 만들어
-        // Hierarchy 뷰를 깔끔하게 정리합니다.
+        // [NEW] 스폰된 인스턴스에서 BuyableItem 컴포넌트를 찾아 저장합니다.
+        if (currentItemInstance != null)
+        {
+            spawnedBuyableItem = currentItemInstance.GetComponent<BuyableItem>();
+        }
+
+        // (선택 사항) Hierarchy 정리
         currentItemInstance.transform.SetParent(this.transform);
 
         Debug.Log($"{itemPrefab.name}이(가) 리스폰되었습니다.");
@@ -60,15 +95,25 @@ public class ItemRespawner : MonoBehaviour
     /// </summary>
     private IEnumerator RespawnItem()
     {
-        isSpawning = true; // "지금 스폰하는 중" 플래그 켜기
+        isSpawning = true; 
+        
+        // [NEW] 리스폰 대기열에 들어가기 전에,
+        // 혹시 모를 참조를 깨끗이 비웁니다.
+        spawnedBuyableItem = null; 
+
         Debug.Log($"{itemPrefab.name}이(가) {respawnDelay}초 후 리스폰됩니다...");
         
-        // 설정된 시간만큼 기다립니다.
         yield return new WaitForSeconds(respawnDelay);
 
-        // 시간이 지난 후, 새 아이템 스폰
+        // [NEW] 프리팹 자체에 BuyableItem이 있는지 마지막으로 확인 (경고용)
+        if (respawnOnPurchase && itemPrefab.GetComponent<BuyableItem>() == null)
+        {
+            Debug.LogWarning("'Respawn On Purchase'가 체크되어 있지만, " +
+                             $"할당된 프리팹({itemPrefab.name})에 BuyableItem 스크립트가 없습니다!", this.gameObject);
+        }
+
         SpawnItem();
         
-        isSpawning = false; // "스폰 완료" 플래그 끄기
+        isSpawning = false; 
     }
 }
