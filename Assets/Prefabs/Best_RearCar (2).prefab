@@ -3088,8 +3088,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6589371e5f5f9e43bb91fa37b6c39df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  calmDrag: 5
-  calmAngularDrag: 5
+  calmDrag: 1
+  calmAngularDrag: 1
 --- !u!1 &8996344735754720523
 GameObject:
   m_ObjectHideFlags: 0
