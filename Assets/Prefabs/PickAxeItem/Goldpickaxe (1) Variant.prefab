@@ -52,10 +52,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2351149156928970811, guid: dd37bbb420a8bd74c90cf1d9c64b486c, type: 3}
-      propertyPath: m_Interpolate
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4955930628676454639, guid: dd37bbb420a8bd74c90cf1d9c64b486c, type: 3}
       propertyPath: price
       value: 100
