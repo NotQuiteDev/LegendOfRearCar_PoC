@@ -299,7 +299,7 @@ public class PlayerController_Rigidbody : MonoBehaviour
     }
 
     /// <summary>
-    /// [NEW] 'Attack' 버튼 (마우스 좌클릭) - 아이템 사용 (채굴 / 던지기)
+    /// [MODIFIED] 'Attack' 버튼 (마우스 좌클릭) - 아이템 사용 (채굴 / 던지기 / 먹기)
     /// </summary>
     private void HandleAttack()
     {
@@ -315,25 +315,67 @@ public class PlayerController_Rigidbody : MonoBehaviour
 
         // --- 아이템 종류에 따라 다른 행동 ---
 
-        // 1. 들고 있는 것이 'Pickaxe' 인가? (C# 7.0 이상 패턴 매칭)
-        if (heldHoldable is Pickaxe pickaxe)
+        // 1. 들고 있는 것이 'Food' 인가? (음식 먹기)
+        // (가장 자주 할 행동이거나, 위험한 Pickaxe보다 먼저 체크하는 것이 좋습니다)
+        if (heldHoldable is Food food)
         {
-            // 에너지가 없으면 채굴 불가
+            Debug.Log("손에 든 아이템은 '음식'입니다.");
+
+            // 이 음식이 '구매해야 하는' 아이템인지 확인
+            BuyableItem buyable = food.GetComponent<BuyableItem>();
+
+            bool canEat = false;
+            
+            if (buyable != null)
+            {
+                // 상점 아이템이라면, 구매(isPurchased)했을 때만 먹을 수 있음
+                if (buyable.isPurchased)
+                {
+                    canEat = true;
+                }
+                else
+                {
+                    Debug.Log("아직 구매하지 않은 음식이라 먹을 수 없습니다.");
+                    // TODO: "구매 전" 사운드 재생
+                }
+            }
+            else
+            {
+                // BuyableItem 컴포넌트가 아예 없음 = 상점 아이템이 아님 (필드 드랍 등)
+                // -> 즉시 먹을 수 있음
+                canEat = true;
+            }
+
+            if (canEat)
+            {
+                // PlayerEnergy 컴포넌트가 있는지 확인 (Awake에서 이미 찾았음)
+                if (playerEnergy != null)
+                {
+                    // Food.cs에 구현된 Consume 함수 호출
+                    food.Consume(playerEnergy);
+
+                    // 중요: 아이템을 먹어서 파괴했으므로, 손에서 비워야 함
+                    heldHoldable = null; 
+                }
+                else
+                {
+                    Debug.LogWarning("PlayerEnergy 컴포넌트가 없어 음식을 먹을 수 없습니다!");
+                }
+            }
+        }
+        // 2. 들고 있는 것이 'Pickaxe' 인가? (채굴)
+        else if (heldHoldable is Pickaxe pickaxe)
+        {
+            // (이전 채굴 로직... 그대로 둡니다)
+            
             if (playerEnergy != null && playerEnergy.GetCurrentEnergy() <= 0)
             {
                 Debug.Log("에너지가 부족하여 채굴할 수 없습니다.");
                 return;
             }
-
-            // 채굴 행동
             Debug.Log("곡괭이 휘두름!");
-            playerEnergy?.UseEnergy(mineEnergyCost); // 에너지 소모
-            
-            // TODO: 곡괭이 애니메이션, 사운드 재생
-
-            // 주변의 광석 찾기
+            playerEnergy?.UseEnergy(mineEnergyCost); 
             Collider[] hitOres = Physics.OverlapSphere(transform.position, miningRange, oreLayer);
-
             foreach (Collider oreCol in hitOres)
             {
                 Ore ore = oreCol.GetComponent<Ore>();
@@ -341,22 +383,19 @@ public class PlayerController_Rigidbody : MonoBehaviour
                 {
                     Debug.Log($"광석 {ore.name} 발견! 데미지 {pickaxe.damage}!");
                     ore.TakeDamage(pickaxe.damage);
-                    
-                    // 한 번의 스윙에 하나의 광석만 타격 (필요시 이 'break' 제거)
                     break; 
                 }
             }
         }
-        // 2. 들고 있는 것이 'PickupableBox' 인가?
+        // 3. 들고 있는 것이 'PickupableBox' 인가? (던지기)
         else if (heldHoldable is PickupableBox box)
         {
-            // 상자 던지기 행동
+            // (이전 던지기 로직... 그대로 둡니다)
             Debug.Log("상자 던지기!");
             ThrowHeldItem();
         }
-        // 3. (추가) 다른 종류의 아이템이 있다면 else if ...
+        // 4. (추가) 다른 종류의 아이템이 있다면 else if ...
     }
-
     /// <summary>
     /// [NEW] 들고 있는 아이템을 던집니다.
     /// </summary>
