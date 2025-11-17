@@ -27,12 +27,7 @@ public class PlayerController_Rigidbody : MonoBehaviour
     [SerializeField] private PlayerEnergy playerEnergy; // 인스펙터에서 연결
     [SerializeField] private float sprintEnergyCost = 2f; // 초당 소모량
     [SerializeField] private float jumpEnergyCost = 5f;   // 1회 소모량
-    [SerializeField] private float mineEnergyCost = 10f;  // 1회 소모량
 
-    // [NEW] 채굴(Mining) 시스템
-    [Header("Mining System")]
-    [SerializeField] private float miningRange = 2f; // 채굴 가능 범위
-    [SerializeField] private LayerMask oreLayer;     // "Ore" 레이어만 감지
 
     // Components
     private Rigidbody rb; 
@@ -305,30 +300,24 @@ public class PlayerController_Rigidbody : MonoBehaviour
     {
         if (!inputActions.Player.Attack.WasPressedThisFrame())
         {
-            return; // 공격 키 안 눌렀으면 종료
+            return; 
         }
 
         if (heldHoldable == null)
         {
-            return; // 아무것도 안 들고 있으면 종료
+            return; 
         }
 
-        // --- 아이템 종류에 따라 다른 행동 ---
-
         // 1. 들고 있는 것이 'Food' 인가? (음식 먹기)
-        // (가장 자주 할 행동이거나, 위험한 Pickaxe보다 먼저 체크하는 것이 좋습니다)
         if (heldHoldable is Food food)
         {
+            // (이전과 동일한 음식 먹기 로직... 건드리지 마세요)
             Debug.Log("손에 든 아이템은 '음식'입니다.");
-
-            // 이 음식이 '구매해야 하는' 아이템인지 확인
             BuyableItem buyable = food.GetComponent<BuyableItem>();
-
             bool canEat = false;
             
             if (buyable != null)
             {
-                // 상점 아이템이라면, 구매(isPurchased)했을 때만 먹을 수 있음
                 if (buyable.isPurchased)
                 {
                     canEat = true;
@@ -336,25 +325,18 @@ public class PlayerController_Rigidbody : MonoBehaviour
                 else
                 {
                     Debug.Log("아직 구매하지 않은 음식이라 먹을 수 없습니다.");
-                    // TODO: "구매 전" 사운드 재생
                 }
             }
             else
             {
-                // BuyableItem 컴포넌트가 아예 없음 = 상점 아이템이 아님 (필드 드랍 등)
-                // -> 즉시 먹을 수 있음
                 canEat = true;
             }
 
             if (canEat)
             {
-                // PlayerEnergy 컴포넌트가 있는지 확인 (Awake에서 이미 찾았음)
                 if (playerEnergy != null)
                 {
-                    // Food.cs에 구현된 Consume 함수 호출
                     food.Consume(playerEnergy);
-
-                    // 중요: 아이템을 먹어서 파괴했으므로, 손에서 비워야 함
                     heldHoldable = null; 
                 }
                 else
@@ -363,38 +345,25 @@ public class PlayerController_Rigidbody : MonoBehaviour
                 }
             }
         }
-        // 2. 들고 있는 것이 'Pickaxe' 인가? (채굴)
+        
+        // 2. [!!! 여기가 이렇게 심플해집니다 !!!]
+        // 들고 있는 것이 'Pickaxe' 인가?
         else if (heldHoldable is Pickaxe pickaxe)
         {
-            // (이전 채굴 로직... 그대로 둡니다)
+            // 모든 복잡한 로직은 Pickaxe.cs로 넘어갔습니다.
+            // 우리는 '사용'하라고 명령만 내리고,
+            // 필요한 정보(에너지, 플레이어 위치)만 넘겨줍니다.
             
-            if (playerEnergy != null && playerEnergy.GetCurrentEnergy() <= 0)
-            {
-                Debug.Log("에너지가 부족하여 채굴할 수 없습니다.");
-                return;
-            }
-            Debug.Log("곡괭이 휘두름!");
-            playerEnergy?.UseEnergy(mineEnergyCost); 
-            Collider[] hitOres = Physics.OverlapSphere(transform.position, miningRange, oreLayer);
-            foreach (Collider oreCol in hitOres)
-            {
-                Ore ore = oreCol.GetComponent<Ore>();
-                if (ore != null)
-                {
-                    Debug.Log($"광석 {ore.name} 발견! 데미지 {pickaxe.damage}!");
-                    ore.TakeDamage(pickaxe.damage);
-                    break; 
-                }
-            }
+            pickaxe.Use(playerEnergy, transform.position); // <- 끝!
         }
+        
         // 3. 들고 있는 것이 'PickupableBox' 인가? (던지기)
         else if (heldHoldable is PickupableBox box)
         {
-            // (이전 던지기 로직... 그대로 둡니다)
+            // (이전과 동일한 상자 던지기 로직... 건드리지 마세요)
             Debug.Log("상자 던지기!");
             ThrowHeldItem();
         }
-        // 4. (추가) 다른 종류의 아이템이 있다면 else if ...
     }
     /// <summary>
     /// [NEW] 들고 있는 아이템을 던집니다.
