@@ -253,6 +253,30 @@ public class PlayerController_Rigidbody : MonoBehaviour
             }
         }
     }
+    /// <summary>
+    /// [NEW] 줍기 버그 수정을 위해 추가
+    /// 트리거 안에 머무는 동안, 줍기 대상(nearbyHoldable)이 비어있다면
+    /// 계속해서 새로운 아이템을 찾도록 합니다.
+    /// </summary>
+    private void OnTriggerStay(Collider other)
+    {
+        // OnTriggerEnter와 동일한 로직을 실행합니다.
+        // (아이템을 방금 주워서 nearbyHoldable이 null이 된 경우, 
+        //  이 함수가 즉시 다음 프레임에 근처의 다른 아이템을 찾아줍니다.)
+        if (other.CompareTag("Pickupable") || other.CompareTag("Holdable"))
+        {
+            if (nearbyHoldable == null) // 줍기 대상이 비어있을 때만
+            {
+                HoldableObject item = other.GetComponent<HoldableObject>();
+                
+                // 내가 이미 들고 있는 아이템이 아닌지 확인
+                if (item != null && !heldItems.Contains(item))
+                {
+                    nearbyHoldable = item;
+                }
+            }
+        }
+    }
 
     private void OnTriggerExit(Collider other)
     {
