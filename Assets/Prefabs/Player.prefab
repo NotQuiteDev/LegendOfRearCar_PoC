@@ -78,6 +78,7 @@ GameObject:
   - component: {fileID: 3037385574133494202}
   - component: {fileID: 3956874380473311237}
   - component: {fileID: 6286730684972520704}
+  - component: {fileID: 6940702933137415369}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -167,7 +168,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2819747500731926570}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d36568ac526094641a855044c16e307d, type: 3}
   m_Name: 
@@ -190,7 +191,7 @@ MonoBehaviour:
   - {fileID: 8615622687601001279}
   maxHeldItems: 5
   throwForce: 2
-  playerEnergy: {fileID: 3956874380473311237}
+  playerEnergy: {fileID: 0}
   sprintEnergyCost: 1
   jumpEnergyCost: 1
 --- !u!54 &1647275324246343666
@@ -270,7 +271,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moneyTMPText: {fileID: 0}
-  startingMoney: 1000
+  startingMoney: 100
+--- !u!114 &6940702933137415369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2819747500731926570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b34b4862416c6524ab41e8eca9894e57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5
+  sprintSpeed: 8
+  rotationSpeed: 10
+  jumpForce: 5
+  damage: 100
+  miningRate: 0.1
+  oreLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  attackForwardOffset: 1.5
+  attackHeightOffset: 0.5
+  attackRadius: 2
+  cameraTransform: {fileID: 0}
+  groundCheck: {fileID: 7791113138601371270}
+  groundDistance: 0.2
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 392
 --- !u!1 &3807503952356071020
 GameObject:
   m_ObjectHideFlags: 0
