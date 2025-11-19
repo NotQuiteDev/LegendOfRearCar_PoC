@@ -12213,19 +12213,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8303710395002363361, guid: 0a06f14a1ba9555439a4f46763f94821, type: 3}
       propertyPath: spacing.x
-      value: 0.3
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 8303710395002363361, guid: 0a06f14a1ba9555439a4f46763f94821, type: 3}
       propertyPath: spacing.y
-      value: 0.3
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 8303710395002363361, guid: 0a06f14a1ba9555439a4f46763f94821, type: 3}
       propertyPath: spacing.z
-      value: 0.3
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 8303710395002363361, guid: 0a06f14a1ba9555439a4f46763f94821, type: 3}
       propertyPath: gridWidthX
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8303710395002363361, guid: 0a06f14a1ba9555439a4f46763f94821, type: 3}
       propertyPath: cargoOrigin
@@ -12233,11 +12233,11 @@ PrefabInstance:
       objectReference: {fileID: 311480539}
     - target: {fileID: 8303710395002363361, guid: 0a06f14a1ba9555439a4f46763f94821, type: 3}
       propertyPath: gridHeightY
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8303710395002363361, guid: 0a06f14a1ba9555439a4f46763f94821, type: 3}
       propertyPath: gridLengthZ
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8326769361848555079, guid: 0a06f14a1ba9555439a4f46763f94821, type: 3}
       propertyPath: m_Mesh
@@ -12580,7 +12580,7 @@ GameObject:
   - component: {fileID: 1850891154}
   - component: {fileID: 1850891155}
   - component: {fileID: 1850891156}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: SellingZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12637,7 +12637,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   totalPriceText: {fileID: 26476037}
   playerWallet: {fileID: 4777102721332057109}
-  zoneCollider: {fileID: 1850891155}
+  cartDetectorName: ItemCollectCollider
 --- !u!43 &1865760141
 Mesh:
   m_ObjectHideFlags: 0
