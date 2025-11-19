@@ -289,13 +289,13 @@ MonoBehaviour:
   rotationSpeed: 10
   jumpForce: 5
   damage: 100
-  miningRate: 0.1
+  miningRate: 0.01
   oreLayer:
     serializedVersion: 2
     m_Bits: 1024
-  attackForwardOffset: 1.5
-  attackHeightOffset: 0.5
-  attackRadius: 2
+  attackForwardOffset: 1.02
+  attackHeightOffset: 0.34
+  attackRadius: 1.5
   cameraTransform: {fileID: 0}
   groundCheck: {fileID: 7791113138601371270}
   groundDistance: 0.2

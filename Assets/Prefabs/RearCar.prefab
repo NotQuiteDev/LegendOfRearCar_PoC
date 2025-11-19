@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6797638892870106663}
   - component: {fileID: 149003678348061724}
   - component: {fileID: 4041158468432155348}
-  - component: {fileID: 7686282630884065518}
+  - component: {fileID: 8449295556328411269}
   m_Layer: 8
   m_Name: Cylinder (1)
   m_TagString: Untagged
@@ -87,36 +87,14 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!146 &7686282630884065518
-WheelCollider:
+--- !u!65 &8449295556328411269
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 24855252819439310}
-  serializedVersion: 2
-  m_Center: {x: 0, y: -1.08, z: 0}
-  m_Radius: 8.22
-  m_SuspensionSpring:
-    spring: 0
-    damper: 0
-    targetPosition: 0.5
-  m_SuspensionDistance: 0
-  m_ForceAppPointDistance: 0
-  m_Mass: 20
-  m_WheelDampingRate: 0.0001
-  m_ForwardFriction:
-    m_ExtremumSlip: 0.4
-    m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.8
-    m_AsymptoteValue: 0.5
-    m_Stiffness: 1
-  m_SidewaysFriction:
-    m_ExtremumSlip: 0.2
-    m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.5
-    m_AsymptoteValue: 0.75
-    m_Stiffness: 1
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -124,8 +102,12 @@ WheelCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_Enabled: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.0000004, y: 2.0000005, z: 1.0000002}
+  m_Center: {x: 0.00000005960466, y: 6.7762636e-21, z: -0.0000005662441}
 --- !u!1 &499474398648492660
 GameObject:
   m_ObjectHideFlags: 0
@@ -374,7 +356,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 4124
+  m_VersionIndex: 4127
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -543,6 +525,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfb055d3b39e3924f8264d2a83ea00bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1459910790227981460
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 944623745526508180}
+  m_Layer: 8
+  m_Name: CargoPivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &944623745526508180
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1459910790227981460}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0.886, y: 0, z: 1.246}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8969884082538340452}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &2267220906276304347
 GameObject:
   m_ObjectHideFlags: 0
@@ -640,7 +653,7 @@ GameObject:
   - component: {fileID: 3874013944741704398}
   - component: {fileID: 4410845176740818758}
   - component: {fileID: 2383644112945519135}
-  - component: {fileID: 2108509862178017616}
+  - component: {fileID: 6769062831714020866}
   m_Layer: 8
   m_Name: Cylinder
   m_TagString: Untagged
@@ -716,36 +729,14 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!146 &2108509862178017616
-WheelCollider:
+--- !u!65 &6769062831714020866
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2390121999658949637}
-  serializedVersion: 2
-  m_Center: {x: 0, y: 1.08, z: 0}
-  m_Radius: 8.22
-  m_SuspensionSpring:
-    spring: 0
-    damper: 0
-    targetPosition: 0.5
-  m_SuspensionDistance: 0
-  m_ForceAppPointDistance: 0
-  m_Mass: 20
-  m_WheelDampingRate: 0.0001
-  m_ForwardFriction:
-    m_ExtremumSlip: 0.4
-    m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.8
-    m_AsymptoteValue: 0.5
-    m_Stiffness: 1
-  m_SidewaysFriction:
-    m_ExtremumSlip: 0.2
-    m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.5
-    m_AsymptoteValue: 0.75
-    m_Stiffness: 1
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -753,8 +744,12 @@ WheelCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_Enabled: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.0000004, y: 2.0000005, z: 1.0000002}
+  m_Center: {x: 0.00000017881395, y: 6.7762636e-21, z: -0.0000005662441}
 --- !u!1 &2732471764642713847
 GameObject:
   m_ObjectHideFlags: 0
@@ -1003,7 +998,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3272
+  m_VersionIndex: 3275
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1354,7 +1349,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 4234
+  m_VersionIndex: 4237
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1758,7 +1753,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 4222
+  m_VersionIndex: 4225
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -2140,7 +2135,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 4036
+  m_VersionIndex: 4039
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -2491,7 +2486,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 4106
+  m_VersionIndex: 4109
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -2606,6 +2601,8 @@ GameObject:
   - component: {fileID: 9054156448915007517}
   - component: {fileID: 1857799526058613326}
   - component: {fileID: 1470971862306814843}
+  - component: {fileID: 8303710395002363361}
+  - component: {fileID: 733719202996582224}
   m_Layer: 8
   m_Name: RearCar
   m_TagString: Untagged
@@ -2640,6 +2637,7 @@ Transform:
   - {fileID: 5077765988901875676}
   - {fileID: 9110442745984423582}
   - {fileID: 8202579115899255005}
+  - {fileID: 944623745526508180}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &9054156448915007517
@@ -2702,6 +2700,49 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   calmDrag: 10
   calmAngularDrag: 10
+--- !u!114 &8303710395002363361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8214440958233255181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12dd6166dfa24bf4f94d73b10228cae9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collectibleLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  absorbSpeed: 1
+  collectedLayerName: Default
+  cargoOrigin: {fileID: 944623745526508180}
+  gridWidthX: 3
+  gridLengthZ: 4
+  gridHeightY: 10
+  spacing: {x: 0.5, y: 0.5, z: 0.5}
+--- !u!65 &733719202996582224
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8214440958233255181}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 5.7170258, y: 3.1517596, z: 6.3468556}
+  m_Center: {x: 0.9931717, y: 0.07994294, z: 1.1974685}
 --- !u!1 &8959865444172171706
 GameObject:
   m_ObjectHideFlags: 0
@@ -2950,7 +2991,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 4812
+  m_VersionIndex: 4815
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -3301,7 +3342,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 4706
+  m_VersionIndex: 4709
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []

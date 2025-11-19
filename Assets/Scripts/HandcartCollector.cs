@@ -2,45 +2,47 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class HandcartCollector: MonoBehaviour
+public class HandcartCollector : MonoBehaviour
 {
-    [Header("Collection Settings")]
+    [Header("수집 설정")]
     [SerializeField] private LayerMask collectibleLayer; // 예: Collectible
     [SerializeField] private float absorbSpeed = 10f;
     
-    // [NEW] 수집된 아이템이 변경될 레이어 (예: Default 혹은 CartItem)
-    // 리어카의 collectibleLayer에 포함되지 않는 레이어여야 합니다!
+    [Tooltip("수집된 아이템이 변경될 레이어 이름 (예: Default). 리어카가 다시 수집하지 않게 만듭니다.")]
     [SerializeField] private string collectedLayerName = "Default"; 
 
-    [Header("3D Grid Settings")]
+    [Header("3D 적재 설정 (피봇 = 구석)")]
     [SerializeField] private Transform cargoOrigin; 
     [SerializeField] private int gridWidthX = 3;   
     [SerializeField] private int gridLengthZ = 4;  
     [SerializeField] private int gridHeightY = 2; 
     [SerializeField] private Vector3 spacing = new Vector3(0.5f, 0.5f, 0.5f);
 
+    // 내부 변수
     private List<Transform> slots = new List<Transform>();
     private bool[] isSlotOccupied;
-
-    // 중복 방지용 HashSet (방금 수집 명령 내린 애는 또 검사 안 하게)
-    private HashSet<GameObject> collectingItems = new HashSet<GameObject>();
+    private HashSet<GameObject> collectingItems = new HashSet<GameObject>(); // 중복 방지용
 
     void Start()
     {
-        Generate3DSlots();
+        GenerateSlots();
     }
 
-    void Generate3DSlots()
+    void GenerateSlots()
     {
-        // (기존 슬롯 생성 코드와 동일)
         if (cargoOrigin == null) cargoOrigin = this.transform;
 
+        // 기존 슬롯 정리
+        List<GameObject> toDestroy = new List<GameObject>();
         foreach(Transform child in cargoOrigin) 
         { 
-            if(child.name.StartsWith("Slot_")) Destroy(child.gameObject); 
+            if(child.name.StartsWith("Slot_")) toDestroy.Add(child.gameObject);
         }
+        foreach(var child in toDestroy) Destroy(child);
+        
         slots.Clear();
 
+        // 슬롯 생성 (Y -> Z -> X 순서)
         int totalSlots = gridWidthX * gridLengthZ * gridHeightY;
         isSlotOccupied = new bool[totalSlots];
 
@@ -62,13 +64,11 @@ public class HandcartCollector: MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // 1. 레이어 확인 (수집 대상인지)
+        // 1. 레이어 확인
         if (((1 << other.gameObject.layer) & collectibleLayer) != 0)
         {
-            // 2. 이미 수집 목록에 있는 놈이면 패스 (중복 방지 핵심)
+            // 2. 중복 확인
             if (collectingItems.Contains(other.gameObject)) return;
-
-            // 3. 이미 리어카 자식이어도 패스
             if (other.transform.parent != null && other.transform.IsChildOf(cargoOrigin)) return;
 
             CollectItem(other.gameObject);
@@ -77,6 +77,7 @@ public class HandcartCollector: MonoBehaviour
 
     void CollectItem(GameObject item)
     {
+        // 빈 슬롯 찾기
         int emptyIndex = -1;
         for (int i = 0; i < slots.Count; i++)
         {
@@ -87,36 +88,26 @@ public class HandcartCollector: MonoBehaviour
             }
         }
 
-        if (emptyIndex == -1) return;
+        if (emptyIndex == -1) return; // 꽉 참
 
-        // [중요] 중복 방지 목록에 등록
+        // 수집 시작
         collectingItems.Add(item);
         isSlotOccupied[emptyIndex] = true;
         
-        // 컴포넌트 처리
+        // 물리 끄기 및 트리거 전환
         Rigidbody rb = item.GetComponent<Rigidbody>();
         Collider col = item.GetComponent<Collider>();
-
         if (rb) rb.isKinematic = true;
         if (col) col.isTrigger = true;
 
-        // [핵심 해결책] 레이어를 바꿔버립니다.
-        // 이제 OnTriggerEnter가 이 아이템을 '수집 대상'으로 보지 않습니다.
+        // [핵심] 레이어 변경 (더 이상 수집 대상이 아니게 됨)
         int newLayer = LayerMask.NameToLayer(collectedLayerName);
-        if (newLayer != -1)
-        {
-            item.layer = newLayer;
-        }
-        else
-        {
-            Debug.LogWarning($"Layer '{collectedLayerName}'가 존재하지 않습니다. Default로 설정합니다.");
-            item.layer = 0; // Default
-        }
+        if (newLayer != -1) item.layer = newLayer;
 
         StartCoroutine(FlyToSlot(item.transform, slots[emptyIndex], item));
     }
 
-    IEnumerator FlyToSlot(Transform item, Transform dest, GameObject originalItem)
+    IEnumerator FlyToSlot(Transform item, Transform dest, GameObject originalObj)
     {
         float t = 0;
         Vector3 startPos = item.position;
@@ -126,9 +117,8 @@ public class HandcartCollector: MonoBehaviour
 
         while (t < 1f)
         {
+            if (item == null) yield break; // 파괴 방어
             t += Time.deltaTime * absorbSpeed;
-            if (item == null) yield break; // 중간에 파괴된 경우 방어
-
             item.position = Vector3.Lerp(startPos, dest.position, t);
             item.rotation = Quaternion.Lerp(startRot, Quaternion.identity, t);
             yield return null;
@@ -139,10 +129,66 @@ public class HandcartCollector: MonoBehaviour
             item.localPosition = Vector3.zero;
             item.localRotation = Quaternion.identity;
             
-            // 수집이 완전히 끝났으면 중복 방지 목록에서 제거 (혹시 나중에 버리거나 팔 때를 위해)
-            if (collectingItems.Contains(originalItem))
+            // 수집 완료 후 목록에서 제거 (이후엔 레이어가 바뀌어서 괜찮음)
+            collectingItems.Remove(originalObj);
+        }
+    }
+
+    // ==========================================
+    // [상점 연동용 함수들]
+    // ==========================================
+
+    /// <summary>
+    /// 현재 리어카에 있는 모든 판매 가능 아이템을 리스트로 반환 (상점이 호출)
+    /// </summary>
+    public List<SellableItem> GetAllItems()
+    {
+        List<SellableItem> myItems = new List<SellableItem>();
+        foreach (Transform slot in slots)
+        {
+            if (slot.childCount > 0)
             {
-                collectingItems.Remove(originalItem);
+                SellableItem item = slot.GetChild(0).GetComponent<SellableItem>();
+                if (item != null) myItems.Add(item);
+            }
+        }
+        return myItems;
+    }
+
+    /// <summary>
+    /// 판매 완료 후 리어카 비우기 (상점이 호출)
+    /// </summary>
+    public void SellAndClearAll()
+    {
+        // 1. 데이터 초기화
+        for (int i = 0; i < isSlotOccupied.Length; i++) isSlotOccupied[i] = false;
+        collectingItems.Clear();
+
+        // 2. 실제 오브젝트 파괴
+        foreach (Transform slot in slots)
+        {
+            if (slot.childCount > 0)
+            {
+                Destroy(slot.GetChild(0).gameObject);
+            }
+        }
+    }
+
+    // 에디터 미리보기
+    void OnDrawGizmos()
+    {
+        if (cargoOrigin == null) return;
+        Gizmos.color = new Color(0, 1, 0, 0.3f);
+        for (int y = 0; y < gridHeightY; y++)
+        {
+            for (int z = 0; z < gridLengthZ; z++)
+            {
+                for (int x = 0; x < gridWidthX; x++)
+                {
+                    Vector3 localPos = new Vector3(x * spacing.x, y * spacing.y, z * spacing.z);
+                    Vector3 worldPos = cargoOrigin.TransformPoint(localPos);
+                    Gizmos.DrawWireCube(worldPos, Vector3.one * 0.2f);
+                }
             }
         }
     }
