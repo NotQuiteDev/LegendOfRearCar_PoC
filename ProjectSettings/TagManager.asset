@@ -8,6 +8,7 @@ TagManager:
   - Pickupable
   - Holdable
   - Handcart
+  - CartSellDetector
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - RearCar
   - PlayerInteraction
   - Ore
-  - 
+  - ItemCollectLayer
   - 
   - 
   - 

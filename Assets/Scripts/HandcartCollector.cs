@@ -34,11 +34,11 @@ public class HandcartCollector : MonoBehaviour
 
         // 기존 슬롯 정리
         List<GameObject> toDestroy = new List<GameObject>();
-        foreach(Transform child in cargoOrigin) 
+        foreach (Transform child in cargoOrigin)
         { 
-            if(child.name.StartsWith("Slot_")) toDestroy.Add(child.gameObject);
+            if (child.name.StartsWith("Slot_")) toDestroy.Add(child.gameObject);
         }
-        foreach(var child in toDestroy) Destroy(child);
+        foreach (var child in toDestroy) Destroy(child);
         
         slots.Clear();
 
@@ -60,23 +60,29 @@ public class HandcartCollector : MonoBehaviour
                 }
             }
         }
+
+        // 생성 직후는 전부 비어 있음
+        for (int i = 0; i < isSlotOccupied.Length; i++) isSlotOccupied[i] = false;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         // 1. 레이어 확인
-        if (((1 << other.gameObject.layer) & collectibleLayer) != 0)
-        {
-            // 2. 중복 확인
-            if (collectingItems.Contains(other.gameObject)) return;
-            if (other.transform.parent != null && other.transform.IsChildOf(cargoOrigin)) return;
+        if (((1 << other.gameObject.layer) & collectibleLayer) == 0)
+            return;
 
-            CollectItem(other.gameObject);
-        }
+        // 2. 중복 확인
+        if (collectingItems.Contains(other.gameObject)) return;
+        if (other.transform.parent != null && other.transform.IsChildOf(cargoOrigin)) return;
+
+        CollectItem(other.gameObject);
     }
 
     void CollectItem(GameObject item)
     {
+        // 혹시 내부 상태가 꼬여있을 수 있으니, 수집 전에 한 번 정리
+        RebuildSlotsFromChildren();
+
         // 빈 슬롯 찾기
         int emptyIndex = -1;
         for (int i = 0; i < slots.Count; i++)
@@ -88,7 +94,11 @@ public class HandcartCollector : MonoBehaviour
             }
         }
 
-        if (emptyIndex == -1) return; // 꽉 참
+        if (emptyIndex == -1)
+        {
+            Debug.LogWarning("[HandcartCollector] 더 이상 적재할 수 있는 슬롯이 없습니다.");
+            return; // 꽉 참
+        }
 
         // 수집 시작
         collectingItems.Add(item);
@@ -134,22 +144,126 @@ public class HandcartCollector : MonoBehaviour
         }
     }
 
-    // ==========================================
+    // ─────────────────────────────────────────
+    // 슬롯 상태 자동 복구 (핵심)
+    // ─────────────────────────────────────────
+    private void RebuildSlotsFromChildren()
+    {
+        if (slots == null || slots.Count == 0 || isSlotOccupied == null)
+            return;
+
+        // 1) 플래그 초기화
+        for (int i = 0; i < isSlotOccupied.Length; i++)
+            isSlotOccupied[i] = false;
+
+        // 2) 슬롯들에서 "첫 번째 SellableItem"만 남기고, 나머지는 extraItems로 모은다
+        List<Transform> extraItems = new List<Transform>();
+
+        for (int i = 0; i < slots.Count; i++)
+        {
+            Transform slot = slots[i];
+            bool firstAssigned = false;
+
+            // 자식이 0이면 그냥 비어있는 슬롯
+            if (slot.childCount == 0)
+                continue;
+
+            // childCount가 1 이상일 수 있으니, 전부 검사
+            for (int c = 0; c < slot.childCount; c++)
+            {
+                Transform child = slot.GetChild(c);
+                var sellable = child.GetComponent<SellableItem>();
+                if (sellable == null) continue; // 이상한 게 섞여 있으면 무시
+
+                if (!firstAssigned)
+                {
+                    // 이 슬롯의 대표 아이템
+                    firstAssigned = true;
+                    isSlotOccupied[i] = true;
+                    // 자리/회전 정리
+                    child.localPosition = Vector3.zero;
+                    child.localRotation = Quaternion.identity;
+                }
+                else
+                {
+                    // 이 슬롯에 중복으로 들어온 애들 → 나중에 다른 슬롯으로 옮김
+                    extraItems.Add(child);
+                }
+            }
+        }
+
+        // 3) cargoOrigin 밑에 있지만 어떤 슬롯에도 들어있지 않은 SellableItem도 extraItems에 포함시키자
+        foreach (Transform child in cargoOrigin.GetComponentsInChildren<Transform>())
+        {
+            if (child == cargoOrigin) continue;
+            if (child.name.StartsWith("Slot_")) continue; // 슬롯 자체는 제외
+
+            var sellable = child.GetComponent<SellableItem>();
+            if (sellable == null) continue;
+
+            // 이미 슬롯 아래에 있고, 위 루프에서 한 번 처리된 애는 건너뛸 수 있음
+            bool isChildOfAnySlot = false;
+            foreach (var slot in slots)
+            {
+                if (child.parent == slot)
+                {
+                    isChildOfAnySlot = true;
+                    break;
+                }
+            }
+
+            if (!isChildOfAnySlot)
+            {
+                extraItems.Add(child);
+            }
+        }
+
+        // 4) extraItems를 남는 슬롯에 순서대로 재배치
+        int extraIndex = 0;
+        for (int i = 0; i < slots.Count && extraIndex < extraItems.Count; i++)
+        {
+            if (isSlotOccupied[i]) continue;
+
+            Transform item = extraItems[extraIndex++];
+            item.SetParent(slots[i], worldPositionStays: false);
+            item.localPosition = Vector3.zero;
+            item.localRotation = Quaternion.identity;
+            isSlotOccupied[i] = true;
+        }
+
+        // 5) 아직도 extraItems가 남았다? → 슬롯 개수보다 아이템이 많다는 뜻 (경고)
+        if (extraIndex < extraItems.Count)
+        {
+            Debug.LogWarning($"[HandcartCollector] 슬롯 수보다 아이템이 많습니다. 초과 아이템 수: {extraItems.Count - extraIndex}");
+        }
+
+        // 6) collectingItems도 다시 구성 (안 해도 치명적이진 않지만 깔끔하게)
+        collectingItems.Clear();
+    }
+
+    // ─────────────────────────────────────────
     // [상점 연동용 함수들]
-    // ==========================================
+    // ─────────────────────────────────────────
 
     /// <summary>
     /// 현재 리어카에 있는 모든 판매 가능 아이템을 리스트로 반환 (상점이 호출)
     /// </summary>
     public List<SellableItem> GetAllItems()
     {
+        // 먼저 슬롯/자식 상태를 실제 상황 기준으로 정리
+        RebuildSlotsFromChildren();
+
         List<SellableItem> myItems = new List<SellableItem>();
         foreach (Transform slot in slots)
         {
             if (slot.childCount > 0)
             {
-                SellableItem item = slot.GetChild(0).GetComponent<SellableItem>();
-                if (item != null) myItems.Add(item);
+                // 여기도 혹시 2개 이상 있을 수 있으니 전부 검사
+                for (int c = 0; c < slot.childCount; c++)
+                {
+                    var item = slot.GetChild(c).GetComponent<SellableItem>();
+                    if (item != null) myItems.Add(item);
+                }
             }
         }
         return myItems;
@@ -167,9 +281,10 @@ public class HandcartCollector : MonoBehaviour
         // 2. 실제 오브젝트 파괴
         foreach (Transform slot in slots)
         {
-            if (slot.childCount > 0)
+            // 슬롯 안의 모든 자식 제거
+            for (int c = slot.childCount - 1; c >= 0; c--)
             {
-                Destroy(slot.GetChild(0).gameObject);
+                Destroy(slot.GetChild(c).gameObject);
             }
         }
     }
