@@ -133,4 +133,4 @@ MonoBehaviour:
     weight: 6.25
   - itemPrefab: {fileID: 8720239893459489118, guid: 354348068419b084b90df62f97ee9acc, type: 3}
     weight: 3.125
-  nothingWeight: 0
+  nothingWeight: 50
