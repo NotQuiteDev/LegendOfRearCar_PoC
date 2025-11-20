@@ -317,4 +317,16 @@ public class PlayerController_TPS_Melee : MonoBehaviour
         miningRate = newRate;
         Debug.Log($"[업그레이드] 채굴 속도가 {miningRate}초로 변경되었습니다!");
     }
+    // [추가] 현재 공격력 확인용
+    public float GetDamage()
+    {
+        return damage;
+    }
+
+    // [추가] 공격력 업그레이드용 함수
+    public void SetDamage(float newDamage)
+    {
+        damage = newDamage;
+        Debug.Log($"[대장간] 곡괭이 파워가 {damage}로 강력해졌습니다!");
+    }
 }

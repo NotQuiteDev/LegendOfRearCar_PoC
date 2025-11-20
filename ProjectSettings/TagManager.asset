@@ -9,6 +9,7 @@ TagManager:
   - Holdable
   - Handcart
   - CartSellDetector
+  - Ice
   layers:
   - Default
   - TransparentFX
