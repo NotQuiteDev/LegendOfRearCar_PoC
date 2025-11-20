@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &5095142345311551186
+--- !u!1001 &6837075403953357239
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2694552460611420470, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 11.55
+      value: 1.33
       objectReference: {fileID: 0}
     - target: {fileID: 2694552460611420470, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
       propertyPath: m_LocalPosition.z
@@ -50,59 +50,91 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
       propertyPath: maxHealth
-      value: 300
+      value: 2000
       objectReference: {fileID: 0}
     - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
       propertyPath: nothingWeight
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
-      propertyPath: possibleDrops.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
-      propertyPath: possibleDrops.Array.data[4].name
-      value: Diamond
-      objectReference: {fileID: 0}
-    - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
-      propertyPath: possibleDrops.Array.data[0].weight
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
-      propertyPath: possibleDrops.Array.data[1].weight
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
-      propertyPath: possibleDrops.Array.data[2].weight
       value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
-      propertyPath: possibleDrops.Array.data[3].weight
-      value: 25
+      propertyPath: nothingColor.b
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
-      propertyPath: possibleDrops.Array.data[4].weight
-      value: 3
+      propertyPath: nothingColor.g
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
-      propertyPath: possibleDrops.Array.data[4].itemPrefab
+      propertyPath: nothingColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
+      propertyPath: possibleDrops.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
+      propertyPath: possibleDrops.Array.data[1].name
+      value: iron
+      objectReference: {fileID: 0}
+    - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
+      propertyPath: possibleDrops.Array.data[2].name
+      value: gold
+      objectReference: {fileID: 0}
+    - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
+      propertyPath: possibleDrops.Array.data[0].weight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
+      propertyPath: possibleDrops.Array.data[1].weight
+      value: 12.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
+      propertyPath: possibleDrops.Array.data[2].weight
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
+      propertyPath: possibleDrops.Array.data[0].oreColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
+      propertyPath: possibleDrops.Array.data[0].oreColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
+      propertyPath: possibleDrops.Array.data[0].oreColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
+      propertyPath: possibleDrops.Array.data[1].itemPrefab
       value: 
-      objectReference: {fileID: 8720239893459489118, guid: 354348068419b084b90df62f97ee9acc, type: 3}
+      objectReference: {fileID: 4401745926282219012, guid: 099a978f2bd319a40b0b7970bc97ca4d, type: 3}
     - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
-      propertyPath: possibleDrops.Array.data[4].oreColor.a
+      propertyPath: possibleDrops.Array.data[1].oreColor.b
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
-      propertyPath: possibleDrops.Array.data[4].oreColor.b
-      value: 0.89203453
+      propertyPath: possibleDrops.Array.data[1].oreColor.g
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
-      propertyPath: possibleDrops.Array.data[4].oreColor.g
+      propertyPath: possibleDrops.Array.data[1].oreColor.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
+      propertyPath: possibleDrops.Array.data[2].itemPrefab
+      value: 
+      objectReference: {fileID: 1183394011628954658, guid: 189a47d78aa47a74f8c06b0aaca7fdfb, type: 3}
+    - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
+      propertyPath: possibleDrops.Array.data[2].oreColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
+      propertyPath: possibleDrops.Array.data[2].oreColor.g
+      value: 0.6839224
       objectReference: {fileID: 0}
     - target: {fileID: 5679353753099241152, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
       propertyPath: m_Name
-      value: Good_Ore Variant
+      value: hard_Ore Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
