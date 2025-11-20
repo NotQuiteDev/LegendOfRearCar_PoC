@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &5095142345311551186
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2694552460611420470, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 148.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 2694552460611420470, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 11.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 2694552460611420470, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -40.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2694552460611420470, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2694552460611420470, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2694552460611420470, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2694552460611420470, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2694552460611420470, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2694552460611420470, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2694552460611420470, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
+      propertyPath: possibleDrops.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
+      propertyPath: possibleDrops.Array.data[4].name
+      value: Diamond
+      objectReference: {fileID: 0}
+    - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
+      propertyPath: possibleDrops.Array.data[0].weight
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
+      propertyPath: possibleDrops.Array.data[1].weight
+      value: 12.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
+      propertyPath: possibleDrops.Array.data[3].weight
+      value: 12.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
+      propertyPath: possibleDrops.Array.data[4].weight
+      value: 6.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
+      propertyPath: possibleDrops.Array.data[4].itemPrefab
+      value: 
+      objectReference: {fileID: 8720239893459489118, guid: 354348068419b084b90df62f97ee9acc, type: 3}
+    - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
+      propertyPath: possibleDrops.Array.data[4].oreColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
+      propertyPath: possibleDrops.Array.data[4].oreColor.b
+      value: 0.89203453
+      objectReference: {fileID: 0}
+    - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
+      propertyPath: possibleDrops.Array.data[4].oreColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5679353753099241152, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
+      propertyPath: m_Name
+      value: Good_Ore Variant
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}

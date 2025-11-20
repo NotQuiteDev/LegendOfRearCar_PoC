@@ -14,6 +14,8 @@ public class PlayerController_TPS_Melee : MonoBehaviour
     [SerializeField] private float damage = 25f;         
     [SerializeField] private float miningRate = 0.5f;    // 공격 속도
     [SerializeField] private LayerMask oreLayer;         // 광석 레이어
+    [Header("===== [추가] 공격 범위 시각화 =====")] 
+    [SerializeField] private GameObject rangeVisualPrefab;
     
     // [중요] 타격 범위 미세 조정
     [Tooltip("타격 위치가 캐릭터 중심에서 얼마나 앞에 있는가")]
@@ -76,44 +78,59 @@ public class PlayerController_TPS_Melee : MonoBehaviour
         HandleCartInput();
     }
 
-    // --- [핵심] 캐릭터 앞 범위 타격 (OverlapSphere) ---
+
     void HandleMeleeMining()
     {
         if (Time.time < nextMineTime) return; 
 
         // 1. 타격 중심점 계산
-        // (내 발 위치) + (위로 조금) + (내 앞쪽으로 조금)
         Vector3 attackPos = transform.position 
-                          + (Vector3.up * attackHeightOffset) 
-                          + (transform.forward * attackForwardOffset);
+                            + (Vector3.up * attackHeightOffset) 
+                            + (transform.forward * attackForwardOffset);
 
-        // 2. 둥근 범위 감지 (물리 연산)
+        // 2. 범위 내 모든 광석 감지
         Collider[] hitOres = Physics.OverlapSphere(attackPos, attackRadius, oreLayer);
 
-        bool hitSomething = false;
+        Ore closestOre = null;            // 가장 가까운 광석을 담을 변수
+        float minDistance = float.MaxValue; // 최소 거리 비교용
 
+        // 3. 감지된 것들 중 "가장 가까운 놈" 찾기
         foreach (Collider oreCol in hitOres)
         {
             Ore ore = oreCol.GetComponent<Ore>();
             if (ore != null)
             {
-                ore.TakeDamage(damage);
-                hitSomething = true;
-                // 광역 데미지(여러 개 동시 타격)를 원하면 break를 지우세요.
-                // 단일 타겟을 원하면 break를 유지하세요.
-                 break; 
+                // 타격 중심점(attackPos)과 광석 사이의 거리 계산
+                float dist = Vector3.Distance(attackPos, oreCol.transform.position);
+
+                // 지금 검사하는게 기존에 찾은것보다 더 가까우면 갱신
+                if (dist < minDistance)
+                {
+                    minDistance = dist;
+                    closestOre = ore;
+                }
             }
         }
 
-        if (hitSomething)
+        // 4. 찾은 가장 가까운 광석이 있다면 데미지 주기
+        if (closestOre != null)
         {
-            // TODO: 타격음 재생 / 이펙트 생성
+            closestOre.TakeDamage(damage);
+            
+            // [시각화] 공격 범위 이펙트 (아까 추가한 코드)
+            if (rangeVisualPrefab != null)
+            {
+                GameObject visual = Instantiate(rangeVisualPrefab, attackPos, Quaternion.identity);
+                visual.transform.localScale = Vector3.one * (attackRadius * 2);
+                Destroy(visual, 0.2f);
+            }
+
             nextMineTime = Time.time + miningRate;
         }
     }
     // ------------------------------------------
 
-    void HandleMovement()
+void HandleMovement()
     {
         // 카메라 방향 기준으로 입력 변환
         Vector2 input = inputActions.Player.Move.ReadValue<Vector2>();
@@ -129,12 +146,9 @@ public class PlayerController_TPS_Melee : MonoBehaviour
         vel.y = rb.linearVelocity.y;
         rb.linearVelocity = vel;
 
-        // [중요] 이동 입력이 있을 때만 캐릭터 회전
-        if (moveDir.magnitude > 0.1f)
-        {
-            Quaternion targetRot = Quaternion.LookRotation(moveDir);
-            rb.rotation = Quaternion.Slerp(rb.rotation, targetRot, rotationSpeed * Time.fixedDeltaTime);
-        }
+        // 캐릭터의 Y축 회전을 카메라의 Y축 회전과 일치시킵니다.
+        Quaternion targetRot = Quaternion.Euler(0, cameraTransform.eulerAngles.y, 0);
+        rb.rotation = Quaternion.Slerp(rb.rotation, targetRot, rotationSpeed * Time.fixedDeltaTime);
     }
 
     void HandleJump()
@@ -179,6 +193,17 @@ public class PlayerController_TPS_Melee : MonoBehaviour
         Vector3 attackPos = transform.position 
                           + (Vector3.up * attackHeightOffset) 
                           + (transform.forward * attackForwardOffset);
+
+        Gizmos.DrawWireSphere(attackPos, attackRadius);
+    }
+    void OnDrawGizmos() // OnDrawGizmosSelected -> OnDrawGizmos로 변경
+    {
+        Gizmos.color = Color.yellow;
+        
+        // 타격 중심점 예상 위치
+        Vector3 attackPos = transform.position 
+                            + (Vector3.up * attackHeightOffset) 
+                            + (transform.forward * attackForwardOffset);
 
         Gizmos.DrawWireSphere(attackPos, attackRadius);
     }

@@ -66,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9fe0a856a63e8634ebc7077bc570ea68, type: 2}
+  - {fileID: 2100000, guid: 2ab8149ec4775284bada96c1b85b4a09, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -123,14 +123,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   possibleDrops:
-  - itemPrefab: {fileID: 1602458937779337420, guid: 34585c550b316494c82d686197deddd9, type: 3}
+  - name: rock
+    itemPrefab: {fileID: 1602458937779337420, guid: 34585c550b316494c82d686197deddd9, type: 3}
     weight: 50
-  - itemPrefab: {fileID: 7094169983019519323, guid: 9803498305d1fac4fbf7a7db405cfdb3, type: 3}
+    oreColor: {r: 0.6528301, g: 0.6528301, b: 0.6528301, a: 1}
+  - name: Coal
+    itemPrefab: {fileID: 7094169983019519323, guid: 9803498305d1fac4fbf7a7db405cfdb3, type: 3}
     weight: 25
-  - itemPrefab: {fileID: 4401745926282219012, guid: 099a978f2bd319a40b0b7970bc97ca4d, type: 3}
+    oreColor: {r: 0, g: 0, b: 0, a: 1}
+  - name: iron
+    itemPrefab: {fileID: 4401745926282219012, guid: 099a978f2bd319a40b0b7970bc97ca4d, type: 3}
     weight: 12.5
-  - itemPrefab: {fileID: 1183394011628954658, guid: 189a47d78aa47a74f8c06b0aaca7fdfb, type: 3}
-    weight: 6.25
-  - itemPrefab: {fileID: 8720239893459489118, guid: 354348068419b084b90df62f97ee9acc, type: 3}
-    weight: 3.125
+    oreColor: {r: 1, g: 1, b: 1, a: 1}
+  - name: gold
+    itemPrefab: {fileID: 1183394011628954658, guid: 189a47d78aa47a74f8c06b0aaca7fdfb, type: 3}
+    weight: 0.5
+    oreColor: {r: 1, g: 0.6839224, b: 0, a: 1}
   nothingWeight: 50
+  nothingColor: {r: 0.6509804, g: 0.6509804, b: 0.6509804, a: 1}
