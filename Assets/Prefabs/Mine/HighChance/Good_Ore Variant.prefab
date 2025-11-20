@@ -49,6 +49,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
+      propertyPath: maxHealth
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
+      propertyPath: nothingWeight
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
       propertyPath: possibleDrops.Array.size
       value: 5
       objectReference: {fileID: 0}
@@ -58,19 +66,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
       propertyPath: possibleDrops.Array.data[0].weight
-      value: 25
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
       propertyPath: possibleDrops.Array.data[1].weight
-      value: 12.5
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
+      propertyPath: possibleDrops.Array.data[2].weight
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
       propertyPath: possibleDrops.Array.data[3].weight
-      value: 12.5
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
       propertyPath: possibleDrops.Array.data[4].weight
-      value: 6.25
+      value: 12.5
       objectReference: {fileID: 0}
     - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
       propertyPath: possibleDrops.Array.data[4].itemPrefab
