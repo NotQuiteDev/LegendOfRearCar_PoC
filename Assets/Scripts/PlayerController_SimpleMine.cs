@@ -84,15 +84,17 @@ public class PlayerController_TPS_Melee : MonoBehaviour
         if (Time.time < nextMineTime) return; 
 
         // 1. 타격 중심점 계산
+        // [수정] transform.forward 대신 cameraTransform.forward를 사용합니다.
+        // 이제 카메라가 보는 방향(위/아래 포함)으로 공격 범위가 생성됩니다.
         Vector3 attackPos = transform.position 
                             + (Vector3.up * attackHeightOffset) 
-                            + (transform.forward * attackForwardOffset);
+                            + (cameraTransform.forward * attackForwardOffset); 
 
         // 2. 범위 내 모든 광석 감지
         Collider[] hitOres = Physics.OverlapSphere(attackPos, attackRadius, oreLayer);
 
-        Ore closestOre = null;            // 가장 가까운 광석을 담을 변수
-        float minDistance = float.MaxValue; // 최소 거리 비교용
+        Ore closestOre = null;           
+        float minDistance = float.MaxValue; 
 
         // 3. 감지된 것들 중 "가장 가까운 놈" 찾기
         foreach (Collider oreCol in hitOres)
@@ -100,10 +102,7 @@ public class PlayerController_TPS_Melee : MonoBehaviour
             Ore ore = oreCol.GetComponent<Ore>();
             if (ore != null)
             {
-                // 타격 중심점(attackPos)과 광석 사이의 거리 계산
                 float dist = Vector3.Distance(attackPos, oreCol.transform.position);
-
-                // 지금 검사하는게 기존에 찾은것보다 더 가까우면 갱신
                 if (dist < minDistance)
                 {
                     minDistance = dist;
@@ -117,7 +116,7 @@ public class PlayerController_TPS_Melee : MonoBehaviour
         {
             closestOre.TakeDamage(damage);
             
-            // [시각화] 공격 범위 이펙트 (아까 추가한 코드)
+            // [시각화] 공격 범위 이펙트
             if (rangeVisualPrefab != null)
             {
                 GameObject visual = Instantiate(rangeVisualPrefab, attackPos, Quaternion.identity);
@@ -130,7 +129,7 @@ public class PlayerController_TPS_Melee : MonoBehaviour
     }
     // ------------------------------------------
 
-void HandleMovement()
+    void HandleMovement()
     {
         // 카메라 방향 기준으로 입력 변환
         Vector2 input = inputActions.Player.Move.ReadValue<Vector2>();
@@ -189,21 +188,22 @@ void HandleMovement()
     {
         Gizmos.color = Color.yellow;
         
-        // 타격 중심점 예상 위치
+        // [수정] 여기도 cameraTransform.forward로 변경
         Vector3 attackPos = transform.position 
                           + (Vector3.up * attackHeightOffset) 
-                          + (transform.forward * attackForwardOffset);
+                          + (cameraTransform.forward * attackForwardOffset);
 
         Gizmos.DrawWireSphere(attackPos, attackRadius);
     }
-    void OnDrawGizmos() // OnDrawGizmosSelected -> OnDrawGizmos로 변경
+
+    void OnDrawGizmos() 
     {
         Gizmos.color = Color.yellow;
         
-        // 타격 중심점 예상 위치
+        // [수정] 여기도 cameraTransform.forward로 변경
         Vector3 attackPos = transform.position 
                             + (Vector3.up * attackHeightOffset) 
-                            + (transform.forward * attackForwardOffset);
+                            + (cameraTransform.forward * attackForwardOffset);
 
         Gizmos.DrawWireSphere(attackPos, attackRadius);
     }
