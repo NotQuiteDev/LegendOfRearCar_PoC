@@ -82,7 +82,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
       propertyPath: possibleDrops.Array.data[4].weight
-      value: 3
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
       propertyPath: possibleDrops.Array.data[4].itemPrefab
