@@ -200,7 +200,7 @@ public class PlayerController_TPS_Melee : MonoBehaviour
 
     void HandleMovement()
     {
-        // 카메라 방향 기준으로 입력 변환
+        // 1. 입력값 처리
         Vector2 input = inputActions.Player.Move.ReadValue<Vector2>();
         Vector3 forward = cameraTransform.forward;
         Vector3 right = cameraTransform.right;
@@ -208,15 +208,55 @@ public class PlayerController_TPS_Melee : MonoBehaviour
         forward.Normalize(); right.Normalize();
 
         Vector3 moveDir = (forward * input.y + right * input.x).normalized;
-        float speed = inputActions.Player.Sprint.IsPressed() ? sprintSpeed : moveSpeed;
 
-        Vector3 vel = moveDir * speed;
-        vel.y = rb.linearVelocity.y;
-        rb.linearVelocity = vel;
+        // 2. [핵심] 발 밑에 'Ice' 태그가 있는지 확인
+        bool onIce = false;
+        // GroundCheck 위치에서 겹치는 콜라이더들을 다 가져옵니다.
+        Collider[] hitColliders = Physics.OverlapSphere(groundCheck.position, groundDistance, groundMask);
+        foreach (var col in hitColliders)
+        {
+            if (col.CompareTag("Ice"))
+            {
+                onIce = true;
+                break; // 하나라도 얼음이면 얼음으로 판정
+            }
+        }
 
-        // 캐릭터의 Y축 회전을 카메라의 Y축 회전과 일치시킵니다.
-        Quaternion targetRot = Quaternion.Euler(0, cameraTransform.eulerAngles.y, 0);
-        rb.rotation = Quaternion.Slerp(rb.rotation, targetRot, rotationSpeed * Time.fixedDeltaTime);
+        // 3. 이동 로직
+        if (moveDir.magnitude > 0.1f)
+        {
+            // [키 누름] : 땅이든 얼음이든 즉시 이동
+            float speed = inputActions.Player.Sprint.IsPressed() ? sprintSpeed : moveSpeed;
+            
+            Vector3 vel = moveDir * speed;
+            vel.y = rb.linearVelocity.y; // 중력 유지
+            rb.linearVelocity = vel;
+
+            // 회전
+            Quaternion targetRot = Quaternion.Euler(0, cameraTransform.eulerAngles.y, 0);
+            rb.rotation = Quaternion.Slerp(rb.rotation, targetRot, rotationSpeed * Time.fixedDeltaTime);
+        }
+        else
+        {
+            // [키 뗌] : 여기서 얼음이냐 아니냐를 따짐
+            if (onIce)
+            {
+                // A. 얼음 위다 -> 속도를 아주 천천히 줄임 (미끄러짐 구현)
+                Vector3 slideVel = rb.linearVelocity;
+                // Lerp 수치가 낮을수록 더 많이 미끄러집니다. (0.5f ~ 1.0f 추천)
+                slideVel.x = Mathf.Lerp(slideVel.x, 0, Time.deltaTime * 1.0f); 
+                slideVel.z = Mathf.Lerp(slideVel.z, 0, Time.deltaTime * 1.0f);
+                rb.linearVelocity = slideVel;
+            }
+            else
+            {
+                // B. 얼음이 아니다 (일반 땅 or 공중) -> 즉시 정지 (원하시던 기능)
+                Vector3 stopVel = rb.linearVelocity;
+                stopVel.x = 0;
+                stopVel.z = 0;
+                rb.linearVelocity = stopVel;
+            }
+        }
     }
 
     void HandleJump()
