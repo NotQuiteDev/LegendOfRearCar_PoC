@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class HandcartCollector : MonoBehaviour
 {
+    [Header("===== [추가] 리셋 설정 =====")]
+    [SerializeField] private float fallThreshold = -30f;
     [Header("수집 설정")]
     [SerializeField] private LayerMask collectibleLayer; // 예: Collectible
     [SerializeField] private float absorbSpeed = 10f;
@@ -23,8 +25,14 @@ public class HandcartCollector : MonoBehaviour
     private bool[] isSlotOccupied;
     private HashSet<GameObject> collectingItems = new HashSet<GameObject>(); // 중복 방지용
 
+    private Vector3 startPosition;
+    private Quaternion startRotation;
+    private Rigidbody rb;
     void Start()
     {
+        startPosition = transform.position;
+        startRotation = transform.rotation;
+        rb = GetComponent<Rigidbody>();
         GenerateSlots();
     }
 
@@ -63,6 +71,52 @@ public class HandcartCollector : MonoBehaviour
 
         // 생성 직후는 전부 비어 있음
         for (int i = 0; i < isSlotOccupied.Length; i++) isSlotOccupied[i] = false;
+    }
+    void Update() // [추가] Update 문이 없다면 새로 만드세요
+    {
+        // 맵 아래로 떨어지면 자동 리셋
+        if (transform.position.y < fallThreshold)
+        {
+            ResetCart();
+        }
+    }
+    // [추가] 리어카 리셋 함수 (플레이어도 호출 가능)
+    public void ResetCart()
+    {
+        // 1. 물리 힘 제거 (관성 멈춤)
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector3.zero; // Unity 6000+ (구버전은 velocity)
+            rb.angularVelocity = Vector3.zero;
+        }
+
+        // 2. 위치/회전 복구
+        transform.position = startPosition;
+        transform.rotation = startRotation;
+
+        // 3. 내용물 강제 삭제 (패널티)
+        ClearContentWithoutMoney();
+        
+        Debug.Log("리어카가 리셋되었습니다 (적재물 소멸)");
+    }
+    // [추가] 돈 안 주고 그냥 싹 지우는 함수
+    private void ClearContentWithoutMoney()
+    {
+        // 슬롯 내부 아이템 파괴
+        foreach (Transform slot in slots)
+        {
+            if (slot.childCount > 0)
+            {
+                for (int c = slot.childCount - 1; c >= 0; c--)
+                {
+                    Destroy(slot.GetChild(c).gameObject);
+                }
+            }
+        }
+
+        // 상태 초기화
+        for (int i = 0; i < isSlotOccupied.Length; i++) isSlotOccupied[i] = false;
+        collectingItems.Clear();
     }
 
     private void OnTriggerEnter(Collider other)

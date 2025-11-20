@@ -31,6 +31,15 @@ public class PlayerController_TPS_Melee : MonoBehaviour
     [SerializeField] private float groundDistance = 0.2f;
     [SerializeField] private LayerMask groundMask;
 
+    [Header("===== [추가] 리셋 설정 =====")]
+    [SerializeField] private float fallThreshold = -30f; // 낙하 감지 높이
+    [SerializeField] private float resetHoldTime = 2.0f; // R키 누르고 있어야 하는 시간
+
+    // 내부 변수
+    private Vector3 startPosition;
+    private Quaternion startRotation;
+    private float rKeyPressedTime = 0f; // R키 누른 시간 체크용
+
     // 내부 변수
     private Rigidbody rb;
     private InputSystem_Actions inputActions;
@@ -62,6 +71,9 @@ public class PlayerController_TPS_Melee : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        // [추가] 시작 위치 저장
+        startPosition = transform.position;
+        startRotation = transform.rotation;
     }
 
     void Update()
@@ -76,6 +88,57 @@ public class PlayerController_TPS_Melee : MonoBehaviour
         }
 
         HandleCartInput();
+        HandleResetLogic();
+    }
+    // [추가] 리셋 로직 함수
+    void HandleResetLogic()
+    {
+        // 1. 맵 밖으로 떨어졌을 때 자동 리셋
+        if (transform.position.y < fallThreshold)
+        {
+            RespawnPlayer();
+        }
+
+        // 2. R키를 길게 눌렀을 때 수동 리셋 (Input System 대신 키보드 직접 체크가 간편함)
+        if (Keyboard.current.rKey.wasPressedThisFrame)
+        {
+            rKeyPressedTime = Time.time; // 누르기 시작한 시간
+        }
+
+        if (Keyboard.current.rKey.isPressed)
+        {
+            // 누르고 있는 시간 계산
+            float duration = Time.time - rKeyPressedTime;
+            
+            // 2초 이상 눌렀다면 리셋 실행
+            if (duration > resetHoldTime)
+            {
+                RespawnPlayer();
+                
+                // 리셋 후 시간을 초기화해서 연속 실행 방지
+                rKeyPressedTime = Time.time + 100f; 
+            }
+        }
+    }
+
+    // [추가] 플레이어와 리어카 모두 원위치
+    void RespawnPlayer()
+    {
+        // 1. 플레이어 물리 초기화
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+
+        // 2. 플레이어 위치 복구
+        transform.position = startPosition;
+        transform.rotation = startRotation;
+        Debug.Log("플레이어 긴급 구조 실행!");
+
+        // 3. 씬에 있는 리어카도 찾아서 같이 리셋 (선택 사항)
+        HandcartCollector cart = FindObjectOfType<HandcartCollector>();
+        if (cart != null)
+        {
+            cart.ResetCart();
+        }
     }
 
 

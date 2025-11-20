@@ -285,16 +285,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  sprintSpeed: 8
+  sprintSpeed: 12
   rotationSpeed: 10
-  jumpForce: 5
+  jumpForce: 8
   damage: 100
-  miningRate: 0.01
+  miningRate: 0.3
   oreLayer:
     serializedVersion: 2
     m_Bits: 1024
-  attackForwardOffset: 1.02
-  attackHeightOffset: 0.34
+  rangeVisualPrefab: {fileID: 2170577341272650561, guid: e38378236b6cbe541ad1e64c5951300e, type: 3}
+  attackForwardOffset: 1.77
+  attackHeightOffset: -0
   attackRadius: 1.5
   cameraTransform: {fileID: 0}
   groundCheck: {fileID: 7791113138601371270}
@@ -302,6 +303,8 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 392
+  fallThreshold: -30
+  resetHoldTime: 2
 --- !u!1 &3807503952356071020
 GameObject:
   m_ObjectHideFlags: 0
