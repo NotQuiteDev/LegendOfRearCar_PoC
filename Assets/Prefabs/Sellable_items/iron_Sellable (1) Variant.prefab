@@ -57,8 +57,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8745453880988479800, guid: 34585c550b316494c82d686197deddd9, type: 3}
+      propertyPath: itemName
+      value: "\uCCA0"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8745453880988479800, guid: 34585c550b316494c82d686197deddd9, type: 3}
       propertyPath: itemValue
-      value: 20
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

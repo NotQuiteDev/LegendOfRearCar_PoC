@@ -149,4 +149,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dac313f34cf8284f8547764ff709fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemValue: 5
+  itemValue: 10
+  itemName: "\uB3CC"

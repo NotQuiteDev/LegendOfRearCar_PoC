@@ -7,6 +7,7 @@ public class SellableItem : HoldableObject
     [Header("아이템 가격")]
     [Tooltip("이 아이템을 상점에 팔 때 받을 수 있는 가격입니다.")]
     public int itemValue = 10;
+    public string itemName = "광석";
 
     // HoldableObject의 Awake, PickUp, Drop 기능을
     // 그대로 사용하므로 추가로 코드를 작성할 필요가 없습니다.
