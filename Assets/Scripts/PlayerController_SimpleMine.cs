@@ -34,6 +34,8 @@ public class PlayerController_TPS_Melee : MonoBehaviour
     [Header("===== [추가] 리셋 설정 =====")]
     [SerializeField] private float fallThreshold = -30f; // 낙하 감지 높이
     [SerializeField] private float resetHoldTime = 2.0f; // R키 누르고 있어야 하는 시간
+    [Tooltip("카메라가 보는 방향보다 몇 도 더 위를 때릴 것인가")]
+    [SerializeField] private float attackAngleOffset = 20f; // 20도 정도 위로 휨
 
     // 내부 변수
     private Vector3 startPosition;
@@ -142,24 +144,28 @@ public class PlayerController_TPS_Melee : MonoBehaviour
     }
 
 
+    // --- [수정] 각도 오프셋 적용된 공격 로직 ---
     void HandleMeleeMining()
     {
         if (Time.time < nextMineTime) return; 
 
-        // 1. 타격 중심점 계산
-        // [수정] transform.forward 대신 cameraTransform.forward를 사용합니다.
-        // 이제 카메라가 보는 방향(위/아래 포함)으로 공격 범위가 생성됩니다.
+        // 1. 공격 방향 계산 (카메라 방향에서 위로 살짝 꺾기)
+        // Quaternion.AngleAxis(-각도, 축) : 축을 기준으로 반시계 방향 회전 (X축 기준 -가 위쪽)
+        Quaternion rot = Quaternion.AngleAxis(-attackAngleOffset, cameraTransform.right);
+        Vector3 attackDir = rot * cameraTransform.forward;
+
+        // 2. 타격 중심점 계산 (꺾인 방향 적용)
         Vector3 attackPos = transform.position 
                             + (Vector3.up * attackHeightOffset) 
-                            + (cameraTransform.forward * attackForwardOffset); 
+                            + (attackDir * attackForwardOffset);
 
-        // 2. 범위 내 모든 광석 감지
+        // 3. 범위 내 모든 광석 감지
         Collider[] hitOres = Physics.OverlapSphere(attackPos, attackRadius, oreLayer);
 
-        Ore closestOre = null;           
+        Ore closestOre = null;            
         float minDistance = float.MaxValue; 
 
-        // 3. 감지된 것들 중 "가장 가까운 놈" 찾기
+        // 4. 가장 가까운 광석 찾기
         foreach (Collider oreCol in hitOres)
         {
             Ore ore = oreCol.GetComponent<Ore>();
@@ -174,12 +180,12 @@ public class PlayerController_TPS_Melee : MonoBehaviour
             }
         }
 
-        // 4. 찾은 가장 가까운 광석이 있다면 데미지 주기
+        // 5. 타격 실행
         if (closestOre != null)
         {
             closestOre.TakeDamage(damage);
             
-            // [시각화] 공격 범위 이펙트
+            // [시각화]
             if (rangeVisualPrefab != null)
             {
                 GameObject visual = Instantiate(rangeVisualPrefab, attackPos, Quaternion.identity);
@@ -246,27 +252,22 @@ public class PlayerController_TPS_Melee : MonoBehaviour
         if (inputActions.Player.RearCarDown.IsPressed()) currentCartController.MoveTargetY(-1f);
     }
 
-    // [시각화] 씬(Scene) 뷰에서 타격 범위를 노란색 공으로 보여줍니다.
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.yellow;
-        
-        // [수정] 여기도 cameraTransform.forward로 변경
-        Vector3 attackPos = transform.position 
-                          + (Vector3.up * attackHeightOffset) 
-                          + (cameraTransform.forward * attackForwardOffset);
 
-        Gizmos.DrawWireSphere(attackPos, attackRadius);
-    }
-
+    // [수정] 시각화도 똑같이 꺾여 보이게 수정
     void OnDrawGizmos() 
     {
         Gizmos.color = Color.yellow;
+
+        // 카메라가 없으면 에러 방지용 기본값
+        if(cameraTransform == null) return;
+
+        // 공격 방향 계산 (위로 꺾기)
+        Quaternion rot = Quaternion.AngleAxis(-attackAngleOffset, cameraTransform.right);
+        Vector3 attackDir = rot * cameraTransform.forward;
         
-        // [수정] 여기도 cameraTransform.forward로 변경
         Vector3 attackPos = transform.position 
                             + (Vector3.up * attackHeightOffset) 
-                            + (cameraTransform.forward * attackForwardOffset);
+                            + (attackDir * attackForwardOffset);
 
         Gizmos.DrawWireSphere(attackPos, attackRadius);
     }

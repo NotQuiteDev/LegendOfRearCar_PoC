@@ -12030,8 +12030,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 10
+  m_fontSizeBase: 10
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -28212,19 +28212,19 @@ MonoBehaviour:
   cartButton: {fileID: 1377374722}
   cartText: {fileID: 1900561656}
   pickaxeLevels:
-  - cost: 400
+  - cost: 800
     value: 0.2
-  - cost: 1500
+  - cost: 2000
     value: 0.1
-  - cost: 4000
+  - cost: 5000
     value: 0.01
   cartLevels:
-  - cost: 400
+  - cost: 800
+    value: 2
+  - cost: 2000
     value: 3
-  - cost: 1500
-    value: 5
-  - cost: 4000
-    value: 7
+  - cost: 5000
+    value: 4
 --- !u!65 &682243071
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -96240,9 +96240,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1362039500}
     - target: {fileID: 6940702933137415369, guid: 2f775526fe2e45140b3fe164c58e44dd, type: 3}
+      propertyPath: attackRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6940702933137415369, guid: 2f775526fe2e45140b3fe164c58e44dd, type: 3}
       propertyPath: cameraTransform
       value: 
       objectReference: {fileID: 330585546}
+    - target: {fileID: 6940702933137415369, guid: 2f775526fe2e45140b3fe164c58e44dd, type: 3}
+      propertyPath: attackAngleOffset
+      value: 30
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
