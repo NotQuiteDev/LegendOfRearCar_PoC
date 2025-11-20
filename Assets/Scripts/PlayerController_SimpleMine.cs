@@ -207,4 +207,10 @@ void HandleMovement()
 
         Gizmos.DrawWireSphere(attackPos, attackRadius);
     }
+
+    public void SetMiningRate(float newRate)
+    {
+        miningRate = newRate;
+        Debug.Log($"[업그레이드] 채굴 속도가 {miningRate}초로 변경되었습니다!");
+    }
 }

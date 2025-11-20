@@ -307,4 +307,10 @@ public class HandcartCollector : MonoBehaviour
             }
         }
     }
+    public void SetGridHeight(int newHeight)
+    {
+        gridHeightY = newHeight;
+        GenerateSlots(); // 높이가 바뀌었으니 슬롯 다시 만들기
+        Debug.Log($"[업그레이드] 리어카 높이가 {gridHeightY}칸으로 확장되었습니다!");
+    }
 }
