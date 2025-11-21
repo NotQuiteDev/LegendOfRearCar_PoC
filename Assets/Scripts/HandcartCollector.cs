@@ -367,4 +367,101 @@ public class HandcartCollector : MonoBehaviour
         GenerateSlots(); // 높이가 바뀌었으니 슬롯 다시 만들기
         Debug.Log($"[업그레이드] 리어카 높이가 {gridHeightY}칸으로 확장되었습니다!");
     }
+// [수정] 아이템 버리기 함수 (버린 후 즉시 재정렬 수행)
+    public void DiscardItemByName(string targetName, bool removeAll)
+    {
+        // 리스트를 역순으로 돌면서 삭제 (삭제 시 인덱스 오류 방지)
+        for (int i = slots.Count - 1; i >= 0; i--)
+        {
+            Transform slot = slots[i];
+            if (slot.childCount > 0)
+            {
+                // 슬롯 내 아이템 확인
+                // (혹시 모를 중복 방지를 위해 자식들도 역순 체크)
+                for (int c = slot.childCount - 1; c >= 0; c--)
+                {
+                    Transform itemTr = slot.GetChild(c);
+                    SellableItem item = itemTr.GetComponent<SellableItem>();
+
+                    // 이름 일치 확인
+                    if (item != null && item.itemName == targetName)
+                    {
+                        // [핵심 1] 부모(슬롯)와의 관계를 '즉시' 끊어야 함
+                        // 그래야 밑에서 ReorderItems 할 때 없는 취급을 함
+                        itemTr.SetParent(null); 
+                        
+                        // 수집 목록에서도 제거
+                        collectingItems.Remove(itemTr.gameObject);
+
+                        // 파괴 (이번 프레임 종료 시 사라짐)
+                        Destroy(itemTr.gameObject);
+
+                        // '하나만 버리기' 모드라면 여기서 중단하고 재정렬
+                        if (!removeAll)
+                        {
+                            ReorderItems(); 
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+
+        // '전부 버리기' 모드였다면 루프가 끝난 뒤 재정렬
+        ReorderItems();
+    }
+
+    // [신규] 빈칸을 없애고 앞쪽부터 차곡차곡 다시 채우는 함수
+    public void ReorderItems()
+    {
+        // 1. 현재 살아있는 모든 아이템을 임시 리스트로 피신시킴
+        List<Transform> survivingItems = new List<Transform>();
+
+        foreach (Transform slot in slots)
+        {
+            if (slot.childCount > 0)
+            {
+                // 슬롯에 있는 모든 자식(아이템)을 가져옴
+                for (int c = 0; c < slot.childCount; c++)
+                {
+                    Transform child = slot.GetChild(c);
+                    // 아까 Discard에서 SetParent(null) 당한 애들은 여기 안 잡힘
+                    survivingItems.Add(child);
+                }
+            }
+        }
+
+        // 2. 모든 슬롯 상태 초기화 (일단 싹 비움 처리)
+        for (int i = 0; i < isSlotOccupied.Length; i++)
+        {
+            isSlotOccupied[i] = false;
+        }
+
+        // 3. 앞쪽 슬롯부터 다시 집어넣기 (Compacting)
+        for (int i = 0; i < survivingItems.Count; i++)
+        {
+            // 슬롯 개수보다 아이템이 많으면 중단 (안전장치)
+            if (i >= slots.Count) 
+            {
+                Debug.LogWarning("재정렬 중 슬롯 부족 발생!");
+                break;
+            }
+
+            Transform item = survivingItems[i];
+            Transform targetSlot = slots[i];
+
+            // 아이템을 해당 슬롯으로 이동
+            item.SetParent(targetSlot);
+            
+            // 위치, 회전 정렬
+            item.localPosition = Vector3.zero;
+            item.localRotation = Quaternion.identity;
+
+            // 점유 상태 갱신
+            isSlotOccupied[i] = true;
+        }
+
+        // 디버그용 로그 (필요 없으면 삭제)
+        // Debug.Log($"[Handcart] 재정렬 완료. 남은 아이템: {survivingItems.Count}개");
+    }
 }

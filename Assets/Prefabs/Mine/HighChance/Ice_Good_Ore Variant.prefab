@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
       propertyPath: maxHealth
-      value: 20000
+      value: 5000
       objectReference: {fileID: 0}
     - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
       propertyPath: nothingColor.b
@@ -95,7 +95,7 @@ PrefabInstance:
     - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
       propertyPath: possibleDrops.Array.data[0].itemPrefab
       value: 
-      objectReference: {fileID: 6160826588076489172, guid: d575437deda73bb4fa346cbf83fac45b, type: 3}
+      objectReference: {fileID: 6160826588076489172, guid: 8b481c35b2345b94485e8aff47d5586b, type: 3}
     - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
       propertyPath: possibleDrops.Array.data[0].oreColor.a
       value: 0.60784316
@@ -135,7 +135,7 @@ PrefabInstance:
     - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
       propertyPath: possibleDrops.Array.data[2].itemPrefab
       value: 
-      objectReference: {fileID: 6160826588076489172, guid: d575437deda73bb4fa346cbf83fac45b, type: 3}
+      objectReference: {fileID: 6160826588076489172, guid: 62bc80303cb354949bed124627f7c87a, type: 3}
     - target: {fileID: 5588337194482909173, guid: 07a103edda439fd41b93cebb2b4d1884, type: 3}
       propertyPath: possibleDrops.Array.data[2].oreColor.a
       value: 0.60784316
